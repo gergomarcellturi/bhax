@@ -1,0 +1,36 @@
+<part xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <title>Bevezetés</title>
+    <partintro>
+        <para> 
+        </para>
+    </partintro>
+    <chapter>
+        <info>
+            <title>Vízió</title>
+            <keywordset>
+                <keyword/>
+            </keywordset>
+        </info>
+        <section>
+            <title>Mi a programozás?</title>
+            <para>
+                Egy eszköz a programozó kezében, ugyan olyan eszköz, mint festő kezében az ecset, vagy író kezében a toll.
+            </para>
+        </section>
+       
+        <section>
+            <title>A Könyv adatai</title>
+            <para>
+                Passzolások száma: 4
+                
+                Passzolt feladatok:
+                2.2 - Lefagyott, nem fagyott akkor most mi van?
+                4.6 - Hiba-visszaterjesztéses perceptron
+                8.2 - Mély MNIST
+                8.3 - Minecraft - MALMÖ
+                
+                Tutorált emberek száma: 2
+            </para>
+        </section>
+    </chapter>                
+</part>  
