@@ -1,0 +1,1453 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Welch!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Első osztályom</title>
+        <para>
+            Valósítsd meg C++-ban és Java-ban az módosított polártranszformációs algoritmust! A matek háttér 
+            teljesen irreleváns, csak annyiban érdekes, hogy az algoritmus egy számítása során két normálist
+            számol ki, az egyiket elspájzolod és egy további logikai taggal az osztályban jelzed, hogy van vagy
+            nincs eltéve kiszámolt szám.
+        </para>
+        
+        <para>
+            C++               
+        </para>
+        <programlisting language="c++"><![CDATA[ 
+        #include <iostream>
+#include <cstdlib>	
+#include <cmath>	
+#include <ctime>	
+
+class PolarGen 
+{
+
+	public:
+
+		PolarGen(); 
+        double next(); 
+        ~PolarGen(){} 
+
+	private:
+		bool notStored;
+		double storedValue;
+};
+
+]]></programlisting> 
+            
+<para>
+    Létrehozunk egy PolarGen class-t. Ebben találhatjuk a fő konstruktort, és destroktort, ezen felül láthatjuk hogy két double-t tartalmaz és egy bool.
+    A 'storedValue'-ban van a szám amit raktározunk.
+</para>
+            <programlisting language="c++"><![CDATA[ 
+            
+PolarGen::PolarGen()
+{
+	notStored = true;
+	std::srand (std::time(NULL));
+};
+
+
+double PolarGen::next() 
+{ 
+	if (notStored)
+{
+		double u1, u2, v1, v2, w;
+
+		do
+        {
+			u1 = std::rand () / (RAND_MAX + 1.0); 
+			u2 = std::rand () / (RAND_MAX + 1.0);
+			v1 = 2 * u1 - 1;
+			v2 = 2 * u2 - 1;
+			w = v1 * v1 + v2 * v2;
+        }
+		while (w > 1);
+
+		double r = std::sqrt ((-2 * std::log (w)) / w);
+
+		storedValue = r * v2; 
+		notStored = !notStored;
+
+		return r * v1; 
+	}
+	
+	else
+	{
+		notStored = !notStored;
+		return storedValue;
+	}
+};    
+                
+                ]]></programlisting> 
+            
+<para>
+    Itt történik a random szám generálása különböző műveletekkel
+</para>
+            <programlisting language="c++"><![CDATA[ 
+
+int main() 
+{
+
+	PolarGen rnd;
+
+	for (int i = 0; i < 10; ++i) 
+        std::cout << rnd.next() << std::endl;
+
+}
+]]></programlisting> 
+
+<para>
+    És kiírunk 10 random számot, amivel megnézhetjük hogy az algoritmusunk működik-e.
+    Mivel ugyanazt az algoritmust használtuk az összes szám generálásához, ha nem ugyanazok akkor feltételezhetően működnek.
+</para>
+        
+<para>
+    Futtatása:
+</para>
+
+<screen>
+    g++ Random.c -o RandomC
+</screen>
+<screen>
+    ./RandomC
+-0.224994
+0.572746
+-0.376624
+0.293692
+-0.0369429
+0.185147
+0.00934692
+-0.0551615
+1.29168
+0.531338
+
+</screen>
+        
+        
+        
+        <para>
+            Ahogy észrevehetjük, mind a 10 szám különböző, tehát az algoritmus működik.
+        </para>    
+        
+                    
+        <para>
+            Java
+        </para>      
+        
+              
+                    
+                      <programlisting language="java"><![CDATA[    
+                          public class PolarGenerator
+{
+    boolean notStored = true;
+    double storedValue;
+    
+    public PolarGenerator()
+    {
+        notStored = true;
+    }
+                          
+                          
+                                
+           ]]></programlisting>        
+           
+           <para>
+               A fő classt láthatjuk itt. Fontos megjegyezni hogy a két kód struktúrájában megegyezik.
+               
+               A Fő classban láthatjuk a storedValue-t ami magát az értéket tartalmazza és egy booleant ami jelzi hogy van-e értéke az objektumnak vagy nem.
+               Mikor deklaráljuk az objektumot adunk neki értéket.
+           </para>    
+           
+                           
+                                           <programlisting language="java"><![CDATA[    
+       
+                              
+                                           public double next()
+    {
+        if(notStored)
+        {
+            double u1,u2,v1,v2,w;
+            do
+            {
+            
+                u1 = Math.random();
+                u2 = Math.random();
+                v1 = 2 * u1 - 1;
+                v2 = 2 * u2 -1;
+                w = v1*v1 + v2*v2;
+            
+            } while(w>1);
+            
+            double r = Math.sqrt((-2*Math.log(w))/w);
+            storedValue = r* v2;
+            notStored = !notStored;
+            return r * v1;
+        }
+        else
+        {
+            notStored = !notStored;
+            return storedValue;
+        }
+    }      
+                                               
+                                                 
+           ]]></programlisting>                   
+                     
+           <para>
+               Itt történik meg a random szám generálása, ugyanolyan műveletekkel mint a c++-os változatában.Itt használjuk a Java Math.random() függvényét is, így biztosan random számokat
+               fogunk kapni.
+           </para>
+           
+                        <programlisting language="java"><![CDATA[    
+       
+                              
+                               public static void main(String[] args)
+    {
+        PolarGenerator g = new PolarGenerator();
+        for(int i=0; i<10; i++)
+        {
+            System.out.println(g.next());
+        }
+    }
+}
+                   
+                                               
+                                                 
+           ]]></programlisting>                   
+                     
+           <para>
+               Végül pedig kiírunk a standard outputra 10 számot.
+           </para>
+           
+           <para>
+               A program futtatása:
+               
+               
+           </para>
+           <screen>
+               java PolarGenerator 
+-1.042235345103159
+0.27841844673218763
+-0.38977233542862694
+-1.065713636736024
+-1.4692309400600783
+-0.26718802269506126
+-1.6687565664903936
+0.6424669277862723
+-0.042469546910690825
+0.17745378636975095
+
+           </screen>
+           <para>
+               Láthatjuk hogy a 10 szám random, így sikeresen teljesítettük a feladatot.
+           </para>                                                                                
+    </section>        
+
+    <section>
+        <title>LZW</title>
+        <para>
+            Valósítsd meg C-ben az LZW algoritmus fa-építését!
+        </para>
+        
+        <programlisting language="c"><![CDATA[ 
+        #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+typedef struct binfa
+{
+  int ertek;
+  struct binfa *bal_nulla;
+  struct binfa *jobb_egy;
+
+} BINFA, *BINFA_PTR;
+
+BINFA_PTR
+uj_elem ()
+{
+  BINFA_PTR p;
+
+  if ((p = (BINFA_PTR) malloc (sizeof (BINFA))) == NULL)
+    {
+      perror ("memoria");
+      exit (EXIT_FAILURE);
+    }
+  return p;
+}
+
+extern void kiir (BINFA_PTR elem);
+extern void szabadit (BINFA_PTR elem);
+
+        
+        
+         ]]></programlisting> 
+         
+         <para>
+             Csinálunk egy új struktúrát, meny tartalmaz egy integer alapú értéket és két pointert, mely a két alatta lévő gyermekére mutat, jobb és bal oldali gyermkére.
+             Ezen felül csinálunk neki konstruktórt és inicializáljuk a destruktort is, emellett pedig a kiir függvény is inicializálásra kerül.
+             
+             Ez a struktúra pointer alapú lesz.
+         </para> 
+         
+          <programlisting language="c"><![CDATA[ 
+       
+              
+              int
+main (int argc, char **argv)
+{
+  char b;
+
+  BINFA_PTR gyoker = uj_elem ();
+  gyoker->ertek = '/';
+  BINFA_PTR fa = gyoker;
+
+  while (read (0, (void *) &b, 1))
+    {
+      write (1, &b, 1);
+      if (b == '0')
+	{
+	  if (fa->bal_nulla == NULL)
+	    {
+	      fa->bal_nulla = uj_elem ();
+	      fa->bal_nulla->ertek = 0;
+	      fa->bal_nulla->bal_nulla = fa->bal_nulla->jobb_egy = NULL;
+	      fa = gyoker;
+	    }
+	  else
+	    {
+	      fa = fa->bal_nulla;
+	    }
+	}
+      else
+	{
+	  if (fa->jobb_egy == NULL)
+	    {
+	      fa->jobb_egy = uj_elem ();
+	      fa->jobb_egy->ertek = 1;
+	      fa->jobb_egy->bal_nulla = fa->jobb_egy->jobb_egy = NULL;
+	      fa = gyoker;
+	    }
+	  else
+	    {
+	      fa = fa->jobb_egy;
+	    }
+	}
+    }
+
+  printf ("\n");
+  kiir (gyoker);
+  extern int max_melyseg;
+  printf ("melyseg=%d", max_melyseg);
+  szabadit (gyoker);
+}
+        
+         ]]></programlisting> 
+         
+         
+         <para>
+             A main függvénybe lesznek megírva a főbb dolgok. Itt kerül megírásra az is, hogy mi alapján rendeli hozzá melyik értéket melyik elem gyermekéhez.
+         </para>
+         <programlisting language="c"><![CDATA[ 
+             
+             static int melyseg = 0;
+int max_melyseg = 0;
+
+void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      if (melyseg > max_melyseg)
+	max_melyseg = melyseg;
+      kiir (elem->jobb_egy);
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg);
+      kiir (elem->bal_nulla);
+      --melyseg;
+    }
+}
+
+void
+szabadit (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      szabadit (elem->jobb_egy);
+      szabadit (elem->bal_nulla);
+      free (elem);
+    }
+}
+             
+         
+           ]]></programlisting> 
+           
+           <para>
+               A fő függvények, metódusok pedig ide kerülnek, köztük a destruktor is.
+           </para>
+           
+           <para>
+               Futtatása:
+           </para>
+           
+           <screen>
+               gcc LZWBinfa.c -o LZWc
+           </screen>
+           <screen>
+               ./LZWc &lt;in.txt
+az Egyszer volt hol nem volt, volt egyszer egy magányos txt file.
+Léte abba merült ki hogy gazdája random programok parancssori argumentumába írta bele.
+
+Ez valóban egy igencsak magányos és szomorú lét, hogy boldog volt-e? nem
+
+ha azonban lefordulne ez a cucc annak nagyon örülnék.
+
+------------------------------------------------------------------------1(24)
+---------------------------------------------------------------------1(23)
+------------------------------------------------------------------1(22)
+---------------------------------------------------------------1(21)
+------------------------------------------------------------1(20)
+---------------------------------------------------------1(19)
+------------------------------------------------------1(18)
+---------------------------------------------------1(17)
+------------------------------------------------1(16)
+---------------------------------------------1(15)
+------------------------------------------1(14)
+---------------------------------------1(13)
+------------------------------------1(12)
+---------------------------------1(11)
+------------------------------1(10)
+---------------------------1(9)
+------------------------1(8)
+---------------------1(7)
+------------------1(6)
+---------------1(5)
+------------1(4)
+---------1(3)
+------1(2)
+---/(1)
+
+           </screen>
+        
+    </section>        
+        
+    <section>
+        <title>Fabejárás</title>
+        <para>
+            Járd be az előző (inorder bejárású) fát pre- és posztorder is!
+        </para>
+        <para>
+            A binfa egy olyan adatszerkezet, melynek minden eleménének van két mutatója, mely két másik különböző elemére mutat, gyermekére.
+        </para>
+        <para>
+            Ez a feladat igencsak egyszerű ha tudjuk mi az az inorder és postorderi bejárás. 
+            Inorderi bejárás az, amikor először a bal oldali elemet írom ki, utána a gyökeret, és végül a jobb oldali elemet.
+            Postorderi bejárás amikor először a bal, majd jobb és végül az gyökér kerül kiírásra.
+            
+            Tehát valahogy így fog kinézni a kiir() függvény az előző példából:
+        </para>
+        <para>
+            Inorder:
+        </para>
+         <programlisting language="c"><![CDATA[ 
+        void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      if (melyseg > max_melyseg)
+	max_melyseg = melyseg;
+             
+             kiir (elem->bal_nulla); // Bal olal
+             
+             
+             printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek, // gyökér
+	      melyseg);
+      kiir (elem->jobb_egy); //jobb oldal
+             
+             
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg);
+      
+      --melyseg;
+    }
+}
+        ]]></programlisting> 
+        
+        <para>
+            Postorder:
+        </para>
+        
+        <programlisting language="c"><![CDATA[ 
+        void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      if (melyseg > max_melyseg)
+	max_melyseg = melyseg;
+             
+             kiir (elem->bal_nulla); // Bal olal
+               kiir (elem->jobb_egy); //jobb oldal
+             
+             printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek, // gyökér
+	      melyseg);
+      
+             
+             
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg);
+      
+      --melyseg;
+    }
+}
+        ]]></programlisting> 
+    </section>        
+                        
+    <section>
+        <title>Tag a gyökér</title>
+        <para>
+            Az LZW algoritmust ültesd át egy C++ osztályba, legyen egy Tree és egy beágyazott Node
+            osztálya. A gyökér csomópont legyen kompozícióban a fával!
+        </para>
+        
+        <para>
+            A binfa alapja ugyanaz mint az előző feladatban, viszont most hogy adott a c++ lehetőség, kicsit egyszerűbben is meg lehet írni a kódot.
+        </para>
+        <programlisting language="c++"><![CDATA[
+            
+            #include <iostream> 
+#include <cmath> 
+#include <fstream> 
+
+
+
+class LZWBinFa
+{
+public:
+    
+    LZWBinFa (): fa(&gyoker) {}
+
+    ]]></programlisting> 
+    <para>
+        Tag a gyökér!
+    </para>
+     <programlisting language="c++"><![CDATA[
+    void operator<<(char b)
+    {
+        
+        if (b == '0')
+        {
+            
+            if (!fa->nullasGyermek ()) // ha nincs, hát akkor csinálunk
+            {
+                
+                Csomopont *uj = new Csomopont ('0');
+                
+                fa->ujNullasGyermek (uj);
+                
+                fa = &gyoker;
+            }
+            else 
+            {
+                
+                fa = fa->nullasGyermek ();
+            }
+        }
+        
+        else
+        {
+            if (!fa->egyesGyermek ())
+            {
+                Csomopont *uj = new Csomopont ('1');
+                fa->ujEgyesGyermek (uj);
+                fa = &gyoker;
+            }
+            else
+            {
+                fa = fa->egyesGyermek ();
+            }
+        }
+    }
+         ]]></programlisting> 
+    <para>
+        Operátor túlterhelés, ez majd akkor fog kelleni mikor új elemet kívánunk betenni a fába. Illetve akkor lesz hasznosítva.
+    </para>
+     <programlisting language="c++"><![CDATA[
+    
+    void kiir (void)
+    {
+        
+        melyseg = 0;
+        
+        kiir (&gyoker, std::cout);
+    }
+    void szabadit (void)
+    {
+        szabadit (gyoker.egyesGyermek());
+        szabadit (gyoker.nullasGyermek());
+        
+    }
+]]></programlisting> 
+    <para>
+        Destruktor. Letörli az egész fát.
+    </para>
+     <programlisting language="c++"><![CDATA[
+    
+    int getMelyseg (void);
+    double getAtlag (void);
+    double getSzoras (void);
+
+    
+    friend std::ostream& operator<< (std::ostream& os, LZWBinFa& bf)
+    {
+        bf.kiir(os);
+        return os;
+    }
+    void kiir (std::ostream& os)
+    {
+        melyseg = 0;
+        kiir (&gyoker, os);
+    }
+
+private:
+    class Csomopont
+    {
+    public:
+        
+        Csomopont (char b = '/'):betu (b), balNulla (0), jobbEgy (0) {};
+        ~Csomopont () {};
+        
+        Csomopont *nullasGyermek () const {
+            return balNulla;
+        }
+        
+        Csomopont *egyesGyermek () const {
+            return jobbEgy;
+        }
+        
+        void ujNullasGyermek (Csomopont * gy) {
+            balNulla = gy;
+        }
+        
+        void ujEgyesGyermek (Csomopont * gy) {
+            jobbEgy = gy;
+        }
+        
+        char getBetu() const {
+            return betu;
+        }
+
+    private:
+        
+        char betu;
+        
+        Csomopont *balNulla;
+        Csomopont *jobbEgy;
+        
+        Csomopont (const Csomopont &);
+        Csomopont & operator=(const Csomopont &);
+    };
+         ]]></programlisting> 
+    <para>
+        Csomopont class, az függvényeive és metódusaival.
+    </para>
+     <programlisting language="c++"><![CDATA[
+
+    
+    Csomopont *fa;
+    
+    int melyseg, atlagosszeg, atlagdb;
+    double szorasosszeg;
+    
+    LZWBinFa (const LZWBinFa &);
+    LZWBinFa & operator=(const LZWBinFa &);
+
+    
+    void kiir (Csomopont* elem, std::ostream& os)
+    {
+        // Nem létező csomóponttal nem foglalkozunk... azaz ez a rekurzió leállítása
+        if (elem != NULL)
+        {
+            ++melyseg;
+            kiir (elem->egyesGyermek(), os);
+            // ez a postorder bejáráshoz képest
+            // 1-el nagyobb mélység, ezért -1
+            for (int i = 0; i < melyseg; ++i)
+                os << "---";
+            os << elem->getBetu() << "(" << melyseg - 1 << ")" << std::endl;
+            kiir (elem->nullasGyermek(), os);
+            --melyseg;
+        }
+    }
+    void szabadit (Csomopont * elem)
+    {
+        // Nem létező csomóponttal nem foglalkozunk... azaz ez a rekurzió leállítása
+        if (elem != NULL)
+        {
+            szabadit (elem->egyesGyermek());
+            szabadit (elem->nullasGyermek());
+            // ha a csomópont mindkét gyermekét felszabadítottuk
+            // azután szabadítjuk magát a csomópontot:
+            delete elem;
+        }
+    }
+         ]]></programlisting> 
+    <para>
+        Ez a metódus fog lezajlani, mikor ki kívánjuk írni a fa elemeit.
+    </para>
+     <programlisting language="c++"><![CDATA[
+
+protected: 
+
+
+    
+    Csomopont gyoker;
+    int maxMelyseg;
+    double atlag, szoras;
+
+    void rmelyseg (Csomopont* elem);
+    void ratlag (Csomopont* elem);
+    void rszoras  (Csomopont* elem);
+
+};
+
+int LZWBinFa::getMelyseg (void)
+{
+    melyseg = maxMelyseg = 0;
+    rmelyseg (&gyoker);
+    return maxMelyseg-1;
+}
+double LZWBinFa::getAtlag (void)
+{
+    melyseg = atlagosszeg = atlagdb = 0;
+    ratlag (&gyoker);
+    atlag = ((double)atlagosszeg) / atlagdb;
+    return atlag;
+}
+double LZWBinFa::getSzoras (void)
+{
+    atlag = getAtlag ();
+    szorasosszeg = 0.0;
+    melyseg = atlagdb = 0;
+
+    rszoras (&gyoker);
+
+    if (atlagdb - 1 > 0)
+        szoras = std::sqrt( szorasosszeg / (atlagdb - 1));
+    else
+        szoras = std::sqrt (szorasosszeg);
+
+    return szoras;
+}
+void LZWBinFa::rmelyseg (Csomopont* elem)
+{
+    if (elem != NULL)
+    {
+        ++melyseg;
+        if (melyseg > maxMelyseg)
+            maxMelyseg = melyseg;
+        rmelyseg (elem->egyesGyermek());
+        // ez a postorder bejáráshoz képest
+        // 1-el nagyobb mélység, ezért -1
+        rmelyseg (elem->nullasGyermek());
+        --melyseg;
+    }
+}
+void
+LZWBinFa::ratlag (Csomopont* elem)
+{
+    if (elem != NULL)
+    {
+        ++melyseg;
+        ratlag (elem->egyesGyermek());
+        ratlag (elem->nullasGyermek());
+        --melyseg;
+        if (elem->egyesGyermek() == NULL && elem->nullasGyermek() == NULL)
+        {
+            ++atlagdb;
+            atlagosszeg += melyseg;
+        }
+    }
+}
+void
+LZWBinFa::rszoras  (Csomopont* elem)
+{
+    if (elem != NULL)
+    {
+        ++melyseg;
+        rszoras (elem->egyesGyermek());
+        rszoras (elem->nullasGyermek());
+        --melyseg;
+        if (elem->egyesGyermek() == NULL && elem->nullasGyermek() == NULL)
+        {
+            ++atlagdb;
+            szorasosszeg += ((melyseg - atlag) * (melyseg - atlag));
+        }
+    }
+}
+
+
+
+
+void usage(void)
+{
+    std::cout << "Usage: lzwtree in_file -o out_file" << std::endl;
+}
+]]></programlisting> 
+    <para>
+        A program használata.
+    </para>
+     <programlisting language="c++"><![CDATA[
+int
+main (int argc, char *argv[])
+{
+ 
+
+  
+    if (argc != 4) {
+        
+        usage();
+        
+        return -1;
+    }
+
+    
+    char *inFile = *++argv;
+
+    
+    if (*((*++argv)+1) != 'o')  {
+        usage();
+        return -2;
+    }
+         ]]></programlisting> 
+    <para>
+        Emlékeztető ha rosszul használtuk
+    </para>
+     <programlisting language="c++"><![CDATA[
+
+    
+    std::fstream beFile (inFile, std::ios_base::in);
+    std::fstream kiFile (*++argv, std::ios_base::out);
+
+    unsigned char b; // ide olvassik majd a bejövő fájl bájtjait
+    LZWBinFa binFa; // s nyomjuk majd be az LZW fa objektumunkba
+    
+    while (beFile.read ((char *) &b, sizeof (unsigned char))) {
+  
+        for (int i = 0; i < 8; ++i)
+        {
+        // maszkolunk
+            int egy_e = b & 0x80;
+        // csupa 0 lesz benne a végén pedig a vizsgált 0 vagy 1, az if megmondja melyik:
+            if ((egy_e >> 7) == 1)
+        // ha a vizsgált bit 1, akkor az '1' betűt nyomjuk az LZW fa objektumunkba
+                binFa << '1';
+            else
+        // különben meg a '0' betűt:
+                binFa << '0';
+            b <<= 1;
+        }
+
+    }
+
+    //std::cout << binFa.kiir (); // így rajzolt ki a fát a korábbi verziókban de, hogy izgalmasabb legyen
+    // a példa, azaz ki lehessen tolni az LZWBinFa-t kimeneti csatornára:
+
+    kiFile << binFa; // ehhez kell a globális operator<< túlterhelése, lásd fentebb
+    // (jó ez az OO, mert mi ugye nem igazán erre gondoltunk, amikor írtuk, mégis megy, hurrá)
+
+    kiFile  << "depth = " << binFa.getMelyseg () << std::endl;
+    kiFile  << "mean = " << binFa.getAtlag () << std::endl;
+    kiFile  << "var = " << binFa.getSzoras () << std::endl;
+
+    binFa.szabadit ();
+
+    kiFile.close();
+    beFile.close();
+
+    return 0;
+}
+        
+         ]]></programlisting> 
+         
+         
+        
+        
+    </section>        
+                
+    <section>
+        <title>Mutató a gyökér</title>
+        <para>
+            Írd át az előző forrást, hogy a gyökér csomópont ne kompozícióban, csak aggregációban legyen a 
+            fával!
+        </para>
+        <programlisting language="c++"><![CDATA[
+            
+            #include <iostream>
+#include <cmath>
+#include <fstream>
+#include <vector>
+#include <utility>
+#include <algorithm>
+#include <vector>
+
+
+class LZWBinFa {
+public:
+
+     LZWBinFa (){
+	  std::cout << "LZWBinFa konstruktor" << std::endl;
+
+	  gyoker = new Csomopont();
+	  fa = gyoker;
+     }
+     ~LZWBinFa () {     
+	    
+       	  std::cout << "LZWBinFa destruktor" << std::endl;
+          szabadit( gyoker);
+     }
+     
+     LZWBinFa ( const LZWBinFa & regi ) {
+          std::cout << "LZWBinFa másoló konstruktor" << std::endl;
+
+          gyoker = masol(regi.gyoker,regi.fa);
+     }
+  
+     LZWBinFa ( LZWBinFa && regi ) {
+          std::cout << "LZWBinFa mozgató konstruktor" << std::endl;
+          
+          gyoker = nullptr;
+          *this = std::move (regi);
+
+     }
+     LZWBinFa & operator= ( LZWBinFa && regi) 
+     {			
+	   std::cout << "LZWBinFa mozgató értékadás" << std::endl;
+	   std::swap (gyoker, regi.gyoker);	
+		
+	   return *this;
+			
+	}
+
+	LZWBinFa & operator= ( LZWBinFa & regi) 
+     	{			
+		Csomopont * ujgyoker = masol(regi.gyoker, regi.fa);
+		
+		
+		szabadit (gyoker);
+		gyoker = ujgyoker;
+		return* this;		
+	}
+
+            
+            
+            ]]></programlisting> 
+            <para>
+                Konstruktor, Destruktor, mozgató konstruktor, másoló konstruktor, mozgató és másoló értékadás.
+                
+                Ezek találhatóak a kód ezen szegmensében.
+            </para>
+            <programlisting language="c++"><![CDATA[
+     LZWBinFa& operator<< ( char b ) {
+
+          if ( b == '0' ) {
+
+               if ( !fa->nullasGyermek () ) {
+
+                    Csomopont *uj = new Csomopont ( '0' );
+
+                    fa->ujNullasGyermek ( uj );
+ 
+                    fa = gyoker;
+               } else {
+
+                    fa = fa->nullasGyermek ();
+               }
+          }
+
+          else {
+               if ( !fa->egyesGyermek () ) {
+                    Csomopont *uj = new Csomopont ( '1' );
+                    fa->ujEgyesGyermek ( uj );
+                    fa = gyoker;
+               } else {
+                    fa = fa->egyesGyermek ();
+               }
+          }
+      }
+
+]]></programlisting> 
+            <para>
+                Operátor túlterhelés. Így egyszerűbben lehet megírni, ha be akarunk írni valamit a fába.
+            </para>
+            <programlisting language="c++"><![CDATA[
+
+     void kiir ( void ) {
+
+          melyseg = 0;
+
+          kiir ( gyoker, std::cout );
+     }
+
+     int getMelyseg ( void );
+     double getAtlag ( void );
+     double getSzoras ( void );
+
+     friend std::ostream & operator<< ( std::ostream & os, LZWBinFa & bf ) {
+          bf.kiir ( os );
+          return os;
+     }
+     void kiir ( std::ostream & os ) {
+          melyseg = 0;
+          kiir ( gyoker, os );
+     }
+                
+                ]]></programlisting> 
+            <para>
+                Kiírása a fának. Láthatjuk hogy ez is operátor túlterheléssel lett megoldva, így ami az operátor bal oldalára kerül kapja meg a kiírást.
+            </para>
+            <programlisting language="c++"><![CDATA[
+
+private:
+     class Csomopont {
+     public:
+
+          Csomopont ( char b = '/' ) :betu ( b ), balNulla ( 0 ), jobbEgy ( 0 ) {
+          };
+          ~Csomopont () {
+          };
+
+          Csomopont *nullasGyermek () const {
+               return balNulla;
+          }
+
+          Csomopont *egyesGyermek () const {
+               return jobbEgy;
+          }
+
+          void ujNullasGyermek ( Csomopont * gy ) {
+               balNulla = gy;
+          }
+
+          void ujEgyesGyermek ( Csomopont * gy ) {
+               jobbEgy = gy;
+          }
+
+          char getBetu () const {
+               return betu;
+          }
+
+     private:
+
+          char betu;
+
+          Csomopont *balNulla;
+          Csomopont *jobbEgy;
+
+          Csomopont ( const Csomopont & );
+          Csomopont & operator= ( const Csomopont & );
+          
+
+     };
+
+]]></programlisting> 
+            <para>
+               Csomópont osztály, a fontos függvényeivel.
+            </para>
+            <programlisting language="c++"><![CDATA[
+     Csomopont *fa;
+
+     int melyseg, atlagosszeg, atlagdb;
+     double szorasosszeg;
+
+     void kiir ( Csomopont * elem, std::ostream & os ) {
+
+          if ( elem != NULL ) {
+               ++melyseg;
+               kiir ( elem->egyesGyermek (), os );
+
+               for ( int i = 0; i < melyseg; ++i )
+                    os << "---";
+               os << elem->getBetu () << "(" << melyseg - 1 << ")" << std::endl;
+               kiir ( elem->nullasGyermek (), os );
+               --melyseg;
+          }
+     }
+                
+                ]]></programlisting> 
+            <para>
+               Itt történik a kiírás, vagyis hogy hogyan fog valójában kiíródni a fa, vagyis a fa elemei.
+            </para>
+            <programlisting language="c++"><![CDATA[
+
+     void szabadit ( Csomopont * elem ) {
+
+          if ( elem != NULL ) {
+               szabadit ( elem->egyesGyermek () );
+               szabadit ( elem->nullasGyermek () );
+
+               delete elem;
+          }
+     }
+
+                
+                ]]></programlisting> 
+            <para>
+                Destruktor
+            </para>
+            <programlisting language="c++"><![CDATA[
+     Csomopont *  masol ( Csomopont * elem, Csomopont * regifa ) {
+
+          Csomopont * ujelem = NULL;
+
+          if ( elem != NULL ) {
+               ujelem = new Csomopont ( elem->getBetu() );
+
+               ujelem->ujEgyesGyermek ( masol ( elem->egyesGyermek (), regifa ) );
+               ujelem->ujNullasGyermek ( masol ( elem->nullasGyermek (), regifa ) );
+
+               if ( regifa == elem )
+                    fa = ujelem;
+
+          }
+
+          return ujelem;
+     }
+                
+                ]]></programlisting> 
+            <para>
+                Másoló függvény, mely a teljes fát átmásolja egy másikba.
+            </para>
+            <programlisting language="c++"><![CDATA[
+
+	protected:
+
+     	Csomopont *gyoker;
+     	int maxMelyseg;
+   	  double atlag, szoras;
+
+    	 void rmelyseg ( Csomopont * elem );
+    	 void ratlag ( Csomopont * elem );
+   	 void rszoras ( Csomopont * elem );
+
+	};
+
+
+
+	int
+	LZWBinFa::getMelyseg ( void )
+	{
+ 	    melyseg = maxMelyseg = 0;
+ 	    rmelyseg ( gyoker );
+  	   return maxMelyseg - 1;
+	}
+
+	double
+	LZWBinFa::getAtlag ( void )
+	{
+  	   melyseg = atlagosszeg = atlagdb = 0;
+  	   ratlag ( gyoker );
+  	   atlag = ( ( double ) atlagosszeg ) / atlagdb;
+  	   return atlag;
+	}
+
+	double
+	LZWBinFa::getSzoras ( void )
+	{
+	     atlag = getAtlag ();
+   	  szorasosszeg = 0.0;
+   	  melyseg = atlagdb = 0;
+
+   	  rszoras ( gyoker );
+
+   	  if ( atlagdb - 1 > 0 )
+    	      szoras = std::sqrt ( szorasosszeg / ( atlagdb - 1 ) );
+   	  else
+   	       szoras = std::sqrt ( szorasosszeg );
+
+   	  return szoras;
+	}
+
+	void
+	LZWBinFa::rmelyseg ( Csomopont * elem )
+	{
+	     if ( elem != NULL ) {
+		  ++melyseg;
+		  if ( melyseg > maxMelyseg )
+		       maxMelyseg = melyseg;
+		  rmelyseg ( elem->egyesGyermek () );
+		  rmelyseg ( elem->nullasGyermek () );
+		  --melyseg;
+	     }
+	}
+
+	void
+	LZWBinFa::ratlag ( Csomopont * elem )
+	{
+	     if ( elem != NULL ) {
+		  ++melyseg;
+		  ratlag ( elem->egyesGyermek () );
+		  ratlag ( elem->nullasGyermek () );
+		  --melyseg;
+		  if ( elem->egyesGyermek () == NULL && elem->nullasGyermek () == NULL ) {
+		       ++atlagdb;
+		       atlagosszeg += melyseg;
+		  }
+    	 }
+	}
+
+	void
+	LZWBinFa::rszoras ( Csomopont * elem )
+	{
+	     if ( elem != NULL ) {
+		  ++melyseg;
+		  rszoras ( elem->egyesGyermek () );
+		  rszoras ( elem->nullasGyermek () );
+		  --melyseg;
+		  if ( elem->egyesGyermek () == NULL && elem->nullasGyermek () == NULL ) {
+		       ++atlagdb;
+		       szorasosszeg += ( ( melyseg - atlag ) * ( melyseg - atlag ) );
+		  }
+	     }
+	}
+                ]]></programlisting> 
+            <para>
+                Néhány jól kinéző művelet, melyeknek neve beszédes.
+            </para>
+            <programlisting language="c++"><![CDATA[
+
+	void
+	usage ( void )
+	{
+	     std::cout << "Usage: lzwtree in_file -o out_file" << std::endl;
+	}
+
+
+	int
+	main ( int argc, char *argv[] )
+	{
+
+	     if ( argc != 4 ) {
+
+		  usage ();
+
+		  return -1;
+	     }
+
+
+	     char *inFile = *++argv;
+
+	     if ( * ( ( *++argv ) + 1 ) != 'o' ) {
+		  usage ();
+		  return -2;
+	     }
+                
+                ]]></programlisting> 
+            <para>
+                Ha rosszul lett használva a fa akkor egy használati útmutatást kap a felhasználó.
+            </para>
+            <programlisting language="c++"><![CDATA[
+
+
+	     std::fstream beFile ( inFile, std::ios_base::in );
+
+	     if ( !beFile ) {
+		  std::cout << inFile << " nem letezik..." << std::endl;
+		  usage ();
+		  return -3;
+	     }
+
+	     std::fstream kiFile ( *++argv, std::ios_base::out );
+
+	     unsigned char b;
+	     LZWBinFa binFa;	
+
+	     
+	     while (beFile.read ((char *) &b, sizeof (unsigned char)))
+	    {
+
+		for (int i = 0; i < 8; ++i)
+		{
+		    if (b & 0x80)
+		        binFa << '1';
+		    else
+		        binFa << '0';
+		    b <<= 1;
+		}
+
+	    }
+
+	     kiFile << binFa;
+
+
+	     kiFile << "depth = " << binFa.getMelyseg () << std::endl;
+	     kiFile << "mean = " << binFa.getAtlag () << std::endl;
+	     kiFile << "var = " << binFa.getSzoras () << std::endl;
+
+
+
+
+
+
+		LZWBinFa binFa2, binFa4;
+		binFa2 << '1' << '1' << '1' << '1' << '1' << '1' << '1' << '1' << '1' << '1';
+	     
+		binFa4 << '0' << '0' << '0' << '0' << '0' << '0';
+		std::cout << "egy"<< binFa2 << "egy" << std::endl;
+		std::cout << "ketto" << binFa4 << "ketto" <<std::endl;
+
+	     	binFa4 = binFa2;
+
+		std::cout << "egy"<< binFa2 << "egy" << std::endl;
+		std::cout << "ketto" << binFa4 << "ketto" <<std::endl;
+
+		
+		
+
+	     kiFile.close ();
+	     beFile.close ();
+
+
+	     return 0;
+}
+        
+         ]]></programlisting> 
+         <para>
+             A végén pedig néhány művelet hogy csináljunk is valamit a megírt függvényekkel, classokkal és egyebekkel.
+         </para>
+         
+         <para>
+             A program futtatása:
+         </para>
+         
+         <screen>
+             g++ LZWBinFa.cpp -o LZ
+         </screen>
+         <screen>
+             ./LZ in.txt -o out.txt
+LZWBinFa konstruktor
+LZWBinFa konstruktor
+LZWBinFa konstruktor
+egy---------------1(4)
+------------1(3)
+---------1(2)
+------1(1)
+---/(0)
+egy
+ketto---/(0)
+------0(1)
+---------0(2)
+------------0(3)
+ketto
+egy---------------1(4)
+------------1(3)
+---------1(2)
+------1(1)
+---/(0)
+egy
+ketto---------------1(4)
+------------1(3)
+---------1(2)
+------1(1)
+---/(0)
+ketto
+LZWBinFa destruktor
+LZWBinFa destruktor
+LZWBinFa destruktor
+
+         </screen>
+         <screen>
+             cat out.txt
+------------------1(5)
+---------------1(4)
+---------------------1(6)
+------------------0(5)
+---------------------0(6)
+------------------------0(7)
+------------1(3)
+                .
+                .
+                .
+                .
+             
+------------------0(5)
+---------------------------1(8)
+---------------------------------1(10)
+------------------------------0(9)
+------------------------1(7)
+---------------------0(6)
+depth = 11
+mean = 8.17213
+var = 1.11112
+
+         </screen>
+    </section>                     
+
+    <section>
+        <title>Mozgató szemantika</title>
+        <para>
+            Írj az előző programhoz mozgató konstruktort és értékadást, a mozgató konstruktor legyen a mozgató
+            értékadásra alapozva!
+        </para>
+        
+        
+        <para>
+            Mozgató értékadás:
+        </para>
+        <programlisting language="c++"><![CDATA[
+            
+             LZWBinFa & operator= ( LZWBinFa && regi) 
+     {			
+	   std::cout << "LZWBinFa mozgató értékadás" << std::endl;
+	   std::swap (gyoker, regi.gyoker);	
+		
+	   return *this;
+			
+	}
+        
+        ]]></programlisting> 
+        
+        <para>
+            Megcseréli a két pointer (vagyis ahová mutatnak). Mivel ez a mozgató konstruktorból fog meghívódni, így az egyik pointer nullpointer lesz,
+            így technikailag az egyik objektum elveszíti az elemeit.
+        </para>
+        
+        <para>
+            Mozgató konstruktor:
+        </para>
+        
+         <programlisting language="c++"><![CDATA[
+            
+           LZWBinFa ( LZWBinFa && regi ) {
+          std::cout << "LZWBinFa mozgató konstruktor" << std::endl;
+          
+          gyoker = nullptr;
+          *this = std::move (regi);
+
+     }
+        ]]></programlisting> 
+        <para>
+            Létrehoz egy új objektumot, melynek a gyoker mutatója null-ra fog mutatni, majd megcseréli egy, már létező objektummal, azzal hogy meghívja a mozgató értékadást.
+        </para>
+        
+        <para>
+            A mozgató szemantika átmásolja egy új objektumba az eredeti objektum elemeit, majd (miközben) kitörli az összeset az eredetiből.
+        </para>
+        
+    </section>                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

@@ -1,0 +1,85 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Gutenberg!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+        <cover>
+            <para>
+                Programozás tankönyvek rövid olvasónaplói.
+            </para>
+        </cover>
+    </info>
+    <section>
+        <title>Programozási alapfogalmak</title>
+        <para>         
+                  Ezen fejezetben tárgyalásra került a gépeken kialakult nyelvek szintjei, 
+            a gépi nyelv, assembly szintű nyelv, és a magas szintű nyelv. Ezen felül szó esett, hogy ezen szintek A Magas Szintű Programozási Nyelvek 1 és
+            Magas Szintű Programozási Nyelvek 2 filozófiájával foglalkoznak. 
+            </para>
+            <para> 
+            Imsertetve lett a forrásprogram vagy forrásszöveg miléte.
+            Leírásra került a forrásszöveg "nyelvtana", illetve hogy a magas szintű programozási nyelvek valójában csak átfordítják gépi nyelvre a forrásszöveget
+            hiszen minden proesszor gépi nyelven dolgozik.
+                </para>
+                 <para> 
+            A fordítóprogram egy speciális program mely magas szintá programozási nyelvet konvertál gépi nyelvvé. Szó esett hogy
+            az imént említett fordítóprogram a forrásszöveget egy egységként kezeli, és hogy milyen lépéseken megyek keresztül mikorontájt a fordítás megtörténik.
+                     </para>
+                     <para>
+            Lexikális egységekre darabolja, szintaktikai elemzést hajt végre, szemantikai elemzést hajt végre, illetve ha minden a helyén van,
+            akkor legenerálja a gépinyelvű kódot.
+            
+        </para>
+    </section>        
+    <section>
+        <title>Programozás bevezetés</title>
+        <para>                
+            Ezen fejezetben szó esett a C nyelv történetéről, illetve hogy közel áll történetileg az UNIX operációs rendszerhez.
+            Ennek ellenére a nyelv nem kötődik operációs rendszerhez vagy géphez.
+            </para>
+            <para> 
+            Szó esett hogy milyen sokoldalú a C nyelv, és hogy elsősorban milyen jól alkalmazható operációs rendszerek írására.
+            Említésre kerülthogy a C nyelv viszonylag alacsony szintá nyelv, mivel főleg karakterekkel számokkal és címekkel dolgozik.
+            </para>
+                <para> 
+            Nem tartozik hozzá objektum illetve karakterlánc, viszont nagyobb szabadságot nyújt a programozónak, hisz 
+            saját maga rendelkezhet a számítógép adta lehetőségekkel.
+            </para>
+                    <para> 
+            Nincsenek a C nyelvben read és write utasítások.
+            A C nyelv hatékony arra is, hogy hardverfüggetlenül lehessen használni, ezzel szabadságot és sokszínűséget adva a nyelvhez.
+            </para>
+                        <para> 
+            A C nyelv tartalmaz if, for, while és switch utasításokat is.
+            A C nyelv elérhetővé teszi a mutatók használatát és címaritmetikáját.
+            
+        </para>
+               
+    </section>        
+    <section>
+        <title>Programozás</title>
+        <para>                
+            A könyv első részében arrólt volt szó, hogy a C++ 
+            mennyiben másabb a C-nyelvhez képest, mik az újdonságok, illetve kitér az két nyelv objektumorientált különbségeire is.
+            </para>
+            <para> 
+            Szó esett arról hogy az üres paraméterlista azt jelenti hogy nincs a függvénynek paramétere, nem pedig azt hogy tetszőleges számú
+            paraméter hívható.
+            </para>
+            <para> 
+            Említésre került hogy a main függvénybe lehet parancssori argumentumokat adni, illetve hogy a return 0 használata
+            nem kötelező.
+            </para>
+            <para> 
+            Megemlítették hogy az új bool típus használata átláthatóbb kódot eredményez.
+            C++-ban mindenhol állhat deklaráció ahol utasítás is.
+            </para>
+            <para> 
+            Több ugyanolyan függvényt is létrehozhatunk amiknek ugyanaz a neve, ameddig különbözik az argumentumlistája, így
+            a függvénylétrehozás egyszerűbbé válik. Ez a függvénytúlterhelés. Megadhatunk alapértelmezett függvény argumentumokat is.
+            
+            
+        </para>
+    </section>        
+</chapter> 
