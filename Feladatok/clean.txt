@@ -1,0 +1,117 @@
+Kulcs: [00000001]
+Tiszta szoveg: [Egyszer volt hol nem volt, volt egyszer egy magányos txt file.
+Léte abba merült ki hogy gazdája random programok parancssori argumentumába írta bele.
+
+Ez valóban egy igencsak magányos és szomorú lét.
+
+nem hogy az ha
+]
+Kulcs: [00000011]
+Tiszta szoveg: [Egyszes volt hnl nem vnlt, volu egyszes egy mafányos uxt file/
+Léte `bba mer¼lt ki iogy gazeája raodom proframok p`rancssosi argumdntumáb` írta cele.
+
+E{ valób`n egy ifencsak lagányor és sznmorú l©t.
+
+nel hogy a{ ha
+]
+Kulcs: [00000021]
+Tiszta szoveg: [Egyszep volt hml nem vmlt, volv egyszep egy maeányos vxt file,
+Léte cbba mer��lt ki jogy gazfája raldom proeramok pcrancssopi argumgntumábc írta `ele.
+
+Ex valóbcn egy ieencsak oagányoq és szmmorú l��t.
+
+neo hogy ax ha
+]
+Kulcs: [00000031]
+Tiszta szoveg: [Egyszeq volt hll nem vllt, volw egyszeq egy madányos wxt file-
+Léte bbba mer��lt ki kogy gazgája ramdom prodramok pbrancssoqi argumfntumább írta aele.
+
+Ey valóbbn egy idencsak nagányop és szlmorú l��t.
+
+nen hogy ay ha
+]
+Kulcs: [00000041]
+Tiszta szoveg: [Egyszev volt hkl nem vklt, volp egyszev egy macányos pxt file*
+Léte ebba merǼlt ki logy gaz`ája rajdom procramok perancssovi argumantumábe írta fele.
+
+E~ valóben egy icencsak iagányow és szkmorú lǩt.
+
+nei hogy a~ ha
+]
+Kulcs: [00000051]
+Tiszta szoveg: [Egyszew volt hjl nem vjlt, volq egyszew egy mabányos qxt file+
+Léte dbba merƼlt ki mogy gazaája rakdom probramok pdrancssowi argum`ntumábd írta gele.
+
+E valóbdn egy ibencsak hagányov és szjmorú lƩt.
+
+neh hogy a ha
+]
+Kulcs: [00000061]
+Tiszta szoveg: [Egyszet volt hil nem vilt, volr egyszet egy maaányos rxt file(
+Léte gbba merżlt ki nogy gazbája rahdom proaramok pgrancssoti argumcntumábg írta dele.
+
+E| valóbgn egy iaencsak kagányou és szimorú lũt.
+
+nek hogy a| ha
+]
+Kulcs: [00000071]
+Tiszta szoveg: [Egyszeu volt hhl nem vhlt, vols egyszeu egy ma`ányos sxt file)
+Léte fbba merļlt ki oogy gazcája raidom pro`ramok pfrancssoui argumbntumábf írta eele.
+
+E} valóbfn egy i`encsak jagányot és szhmorú lĩt.
+
+nej hogy a} ha
+]
+Kulcs: [00000081]
+Tiszta szoveg: [Egyszez volt hgl nem vglt, vol| egyszez egy maoányos |xt file&
+Léte ibba mer˼lt ki `ogy gazlája rafdom prooramok pirancssozi argummntumábi írta jele.
+
+Er valóbin egy ioencsak eagányo{ és szgmorú l˩t.
+
+nee hogy ar ha
+]
+Kulcs: [00000091]
+Tiszta szoveg: [Egysze{ volt hfl nem vflt, vol} egysze{ egy manányos }xt file'
+Léte hbba merʼlt ki aogy gazmája ragdom pronramok phrancsso{i argumlntumábh írta kele.
+
+Es valóbhn egy inencsak dagányoz és szfmorú lʩt.
+
+ned hogy as ha
+]
+Kulcs: [00000401]
+Tiszta szoveg: [Egyszar volt lol nem rolt, voht egyszar egy megányos$txt fila.
+Léte$abba mevült ki$hogy ga~dája rendom prkgramok tarancsskri arguientumáfa írta$bele.
+
+Az valófan egy mgencsak$magányks és s~omorú hét.
+
+nam hogy ez ha
+]
+Kulcs: [00000481]
+Tiszta szoveg: [Egyszaz volt lgl nem rglt, voh| egyszaz egy meoányos$|xt fila&
+Léte$ibba mev˼lt ki$`ogy ga~lája refdom prkoramok tirancsskzi arguimntumáfi írta$jele.
+
+Ar valófin egy moencsak$eagányk{ és s~gmorú h˩t.
+
+nae hogy er ha
+]
+Kulcs: [00010001]
+Tiszta szoveg: [Egyrzer volu hol nel volt, wolt egyrzer egy!magányns txt fhle.
+Léue abba lerült ji hogy fazdája!random qrogramoj parancrsori arfumentum¡ba írua bele.
+Ez val³ban egx igencs`k magáoyos és!szomorû lét.
+nem hogx az ha
+]
+Kulcs: [00020001]
+Tiszta szoveg: [Egyqzer volv hol neo volt, tolt egyqzer egy"magányms txt fkle.
+Léve abba oerült ii hogy eazdája"random rrogramoi parancqsori areumentum��ba írva bele.
+Ez val��ban eg{ igencsck magályos és"szomorø lét.
+nem hog{ az ha
+]
+Kulcs: [00030001]
+Tiszta szoveg: [Egypzer volw hol nen volt, uolt egypzer egy#magányls txt fjle.
+Léwe abba nerült hi hogy dazdája#random srogramoh parancpsori ardumentum��ba írwa bele.	
+Ez val��ban egz igencsbk magámyos és#szomorù lét.
+	nem hogz az ha
+]
+Kulcs: [00040001]
+Tiszta szoveg: [Egywzer volp hol nei volt, rolt egywzer egy$magányks txt fmle.
+Lépe abba ierült oi hogy cazdája$random trogramoo 
