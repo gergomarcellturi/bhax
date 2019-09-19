@@ -278,13 +278,21 @@
 
         ]]></programlisting>
         
-        
+        <figure>
+            <title></title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/krom1.png" scale="100" />
+                </imageobject>
+                
+            </mediaobject>
+        </figure>
         
         <figure>
             <title></title>
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="img/krom2.png" scale="50" />
+                    <imagedata fileref="img/krom2.png" scale="100" />
                 </imageobject>
                 
             </mediaobject>

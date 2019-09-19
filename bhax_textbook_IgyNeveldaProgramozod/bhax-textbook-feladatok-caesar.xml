@@ -39,6 +39,10 @@ main ()
     int nr = 5;
     double **tm;
             
+            printf("tm memóriacím (double** memóriacíme)\n");
+            printf("%p\n", &tm);
+
+            
             ]]></programlisting>
             <para>
                 Először is felvesszük a fő paramétereinket. Az 'nr' változó fogja jelölni a sorok számát, a 'tm' pedig
@@ -50,6 +54,9 @@ main ()
     {
         return -1;
     }
+                
+            printf("double* memóriacíme\n");
+            printf("%p\n", tm);
 
              ]]></programlisting>
             <para>
@@ -67,6 +74,9 @@ main ()
         }
 
     }
+                
+                printf("double memóriacíme\n");
+                printf("%p\n", tm[0]);  
                  ]]></programlisting>
             <para>
                 Abban az esetben ha nem sikerül elég helyet felszabadítani a memóriában azokra a mutatókra amikre a tm for mutatni, akkor a program leáll.
@@ -127,10 +137,13 @@ main ()
 </para>
 
 <screen>
-    ./tm
-0x7fff92f000f0
-0x563fff77c670
-0x563fff77c6a0
+     ./tm
+tm memóriacím (double** memóriacíme)
+0x7fff48341150
+double* memóriacíme
+0x5557ccd06670
+double memóriacíme
+0x5557ccd066a0
 0.000000, 
 1.000000, 2.000000, 
 3.000000, 4.000000, 5.000000, 
@@ -141,6 +154,7 @@ main ()
 3.000000, 4.000000, 5.000000, 
 42.000000, 43.000000, 44.000000, 45.000000, 
 10.000000, 11.000000, 12.000000, 13.000000, 14.000000, 
+
 </screen>
 
 <para>
