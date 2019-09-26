@@ -1,0 +1,74 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Berners-Lee!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>C++ és Java</title>
+        <para>
+        </para>
+        <para>
+            Ezen feladatban a két, igencsak széleskörben használt és jól ismert nyelvet, a C++-t és a Java-t fogom összemérni, elemezni, Nyékné Dr. Gaizler Judit Java 2 útikalauz programozóknak, illetve Benedek Zoltán és Levendovszky Tihamér Szoftverfejlesztés C++ nyelven könyvei alapján. 
+        </para>
+        <para>
+            A Java teljesen objektumorientált. Ezek a kezdőgondolatai Nyékné Dr. Gaizler Juditnak. De mit jelent ez egy átlag olvasónak akinek semmi köze a programozáshoz? Nos, úgy gondolom hogy annyiról már az átlag ember is tud, hogy a számítástechnikában egyesekkel és nullásokkal dolgoznak, amik információt reprezentálnak. Nos ez a programozásban úgy valósul meg, hogy ezekkez az információkkal dolgozunk a memóriában főleg. Mit jelent ez? Tekintsük azt, hogy egy ember életkorát akarjuk leprezentálni egy X változóval. Ha ennek a változónak értéket adunk, azt a számot, a változó nevével és címével együtt eltesszük a memóriába, és arra a memóriacímre hívatkozunk később, ha elő akarjuk hívni, vagy szeretnénk vele dolgozni. Egyszerű, nem igaz? Tegyük fel, hogy szeretnénk elraktározni továbbá a programunkkal a személy nevét is. Csinálunk egy Y változót, aminek értéket adunk. Ugyanúgy elraktározzuk a memóriában, és ugyanúgy tudunk dolgozni vele.               
+        </para>
+        <para>
+            És ekkor jön egy kérés, hogy ezer ember adataival kellene dolgozni, az adatokba pedig nem csak a koruk és a nevük tartozik bele, hanem a születési dátumuk, a szemük színe, a TAJ számuk, az autójuk rendszáma ha van, a lakcímük, stb. Eljárás orientált programnyelveken itt szokott általában kisebb nehézségek adódni, persze korántsem áthidalhatatlan nehézségek. Azonban az objektum orientáció ezeket hidalja át. Mi lenne, ha nem egy 'int' típusú változót mentenénk el, hanem egy 'személy' típusú változót amihez tartoznak különböző attribútumok, például kor, név, TAJ szám, stb, és amikor szeretnénk az egyén értékeivel dolgozni, mi csak az adott személyre hivatkozunk és úgy nyerjük ki a hozzá tartozó adatokat. Egyszerűbb nem? 
+        </para>
+        <para>
+        	Erről szól az objektumorientáció. Megpróbáljuk objektumokba elképzeni a világot, és azt leírni a programunkba. Az objektumoknak pedig van viselkedése, és tulajdonsága. Például egy kutya objektumnak tulajdonsága hogy például barna a szőre, és viselkedése az hogy ugat (például kiírjuk hogy 'Vau' az outputra). Ilyen rendszerrel sokkal könnyebben, és ami fontosabb, sokkal intuitívebben tudunk adatokkal és információval foglalkozni, mi programozók. Ez a gyakorlatban úgy néz ki, hogy a forráskódban különböző osztályokat és alosztályokat írunk. Osztály lehet például kutya, alosztály pedig mondjuk vizsla. Ezekhez az osztályokhoz pedig tulajdonságokat és viselkedéseket írunk. 
+        </para>
+        <para>
+        	
+        	A modern programozásnak az egyik legnagyobb fegyvere az objektumorientáció, hisz ezzel emberi fejjel tudunk gondolkozni a gépek világában. 
+        </para>
+
+        <para>
+        	A C++ és a Java is objektumorientált. Mi akkor a legnagyobb különbség?
+        </para>
+        <para>
+        	Igaz, hogy mindkét nyelv objektumorientált, azonban ha valaki ránéz egy C++ kódra rengeteg olyan jelet fog látni, ami nem bukkan elő egy Java kódban. Pointereket jelölő csillagokkal, és referenciákat jelölő 'és' jelekket van teletűzdelve a C++ kód. Javaban viszont minden egyszerűbben megy. Javaban minden referencia, így egy Java programozó előfordulhaz hogy soha nem fog pointerekkel találkozni. Ez bizonyos esetekben áldás, bizonyos esetekben pedig átok. Ugyan sokkal egyszerűbbé válik így a Java, mind tanulás mint pedig eszköz tekintetében, azonban fontos megjegyezni, hogy a C++ sokkal széleskörűbb felhasználást tud így nyújtani a használónak, illetve sokkal gyorsabb is. Persze a gyorsaság napjainkban már nem annyira releváns, hisz hatalmas erőforrások állnak a rendelkezésünkre, hogy ne kelljen aggódni hogy melyik nyelven íródott program fut le, nanoszekundumokkal később. 
+        </para>
+    </section>        
+
+    <section>
+        <title>Python</title>
+        <para>
+            A könyv olvasása, illetve a nyelv tesztelgetése és vizsgálódása alatt találtam rá, erre a szerintem igencsak szellemes poénra:
+        </para>
+        <para>
+            Hogyan írjuk át a pszeudokódot Python kódra? 
+        </para>
+        <para>
+            mv code.txt code.py
+        </para>
+        <para>
+            Ezzel a kezdőgondolattal szeretném indítani rövid olvasónaplómat a Forstner Bertalan, Ekler Péter, Kelényi Imre: Bevezetés a mobilprog-
+ramozásba című könyvről. Szerintem a poén igencsak nyilvánvalóvá teszi, hogy a Python nyelven íródott programok igencsak könnyen esnek a szemnek. Ez valóban így van. A Python híres arról hogy könnyen írható és olvasható. Ez egy magas szintű programozási nyelv amely platformfüggetlen és felhasználóbarát szintaxissal rendelkezik. De hogyan érte el mindezt?
+        </para>
+
+        <para>
+        	A Java nelvben van egy extra réteg, amin végig megy a kód, amikor lefut, mielőtt még a compiler megkaparinthatná, s többek között ez az oka, hogy lassabban fut le. A Python-ban is van egy hasonló feature, azonban ez egy kicsit máshogy működik. Az interpreter közvetlenül a kódot olvassa és ezzel egyidejűleg futtatja, fordítás nélkül. 
+
+        </para>
+        <para>
+        	Ez az interpreter teszi platformfüggetlenné is a nyelvet. Amelyik gépen megtalálható az interpreter, azon futni fog a python kód. Ennélfogva a Java-hoz és a C++-hoz hasonlóan egy igencsak elterjedt és közkedvelt nyelvről van szó. Sokan lenézik a Java-t és a Pythont, egyszerűsége miatt, azonban saját véleményem épp az ellenkezője: Az egyszerűségre kell törekedni. Miért jó az, ha egy kód annyira bonyolult hogy szinte olvashatatlan egy átlag embernek? Miért jó az, ha tele van csillagokkal meg 'és' jelekkel az egész? Elegánsabb lesz tőle? Szebb? Nem. Csupán bonyolultabb. Személyes véleményem, hogy a programozást, mint eszközt, elérhetővé kellene tenni minél több embernek, hisz olyan mint az ecset a festő kezében, vagy a toll az íróéban.
+        </para>
+        <para>
+        	Maga a Python, egy számtalan csomagot és eljárást tartalmazó szkriptnyelv, és mivel igen széleskörű eszközök tárháza, elterjedt nyelv nagyobb alkalmazások készítésére is, ezen felül rengeteg 'nem programozó' is használja, mint például matematikusok vagy fizikusok. Talán pont emiatt is ilyen sikeres, hiszen manapság rengeteg szakterülthez kell programozási tudás, gondolok itt a matematikára, a fizikára, a biológiára, kémiára, viszont ezen szakterületeken kevesebb idő marad a programozási kézségek fejlesztésére, így a Python egy remek megoldást nyújt azoknak az embereknek akik nem feltétlenül a programozásra szentelték rá az életüket, de mégis szükségük van rá. 
+        </para>
+        <para>
+        	A Python, a temrészetéből adódóan rövid kódokat eredményez, hiszen sok minden ami máshol extra kifejtést igényelne, itt a programnyelvvel jár együtt. Magas szintű adattípusokat is tartalmaz, melyek ugyancsak hozzájárulnak a könnyed kezeléshez, ráadásul így nem szükséges a változótípis definiálása sem.
+        </para>
+        <para>
+        	Természetesen a többi nyelvhez hasonlóan itt is jelen vannak a már megszokott ciklusok, a for, while, illetve az if-ek. Ezen felül definiálhatóak osztályok, amelyből adódnak az objektumok. Ezen felül rengeteg kényelmi funkcióval rendelkezik, különböző modulok formájában.
+
+        </para>
+    </section>        
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
