@@ -1,0 +1,1606 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Liskov!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+
+
+    <section>
+      <title>Liskov helyettesítés sértése</title>
+
+      <para>Írjunk olyan OO, leforduló Java és C++ kódcsipetet, amely megsérti a Liskov elvet! Mutassunk rá a
+megoldásra: jobb OO tervezés.
+https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (93-99 fólia)
+(számos példa szerepel az elv megsértésére az UDPROG repóban, lásd pl. source/binom/Batfai-
+Barki/madarak/)</para>
+
+        <para>Ez a kódcsipet sérti a Liskov elvet c++ nyelven, mert a pingvin nem tud repülni, de repül. </para>
+
+  
+
+       <programlisting language="c++"><![CDATA[
+
+
+class Madar {
+public:
+     virtual void repul() {};
+};
+
+class Program {
+public:
+     void fgv ( Madar &madar ) {
+          madar.repul();
+     }
+};
+
+class Sas : public Madar
+{};
+
+class Pingvin : public Madar 
+{};
+
+int main ( int argc, char **argv )
+{
+     Program program;
+     Madar madar;
+     program.fgv ( madar );
+
+     Sas sas;
+     program.fgv ( sas );
+
+     Pingvin pingvin;
+     program.fgv ( pingvin ); 
+
+}
+
+                    ]]></programlisting>  
+
+
+                    <para>Ez a kódcsipet nem sérti a liskov elvet, c++ nyelven, mert a pingvin nem tud repülni, és nem is repül</para>
+
+                    <programlisting language="c++"><![CDATA[
+// ez a T az LSP-ben
+class Madar {
+//public:
+//  void repul(){};
+};
+
+// ez a két osztály alkotja a "P programot" az LPS-ben
+class Program {
+public:
+     void fgv ( Madar &madar ) {
+          // madar.repul(); a madár már nem tud repülni
+          // s hiába lesz a leszármazott típusoknak
+          // repül metódusa, azt a Madar& madar-ra úgysem lehet hívni
+     }
+};
+
+// itt jönnek az LSP-s S osztályok
+class RepuloMadar : public Madar {
+public:
+     virtual void repul() {};
+};
+
+class Sas : public RepuloMadar
+{};
+
+class Pingvin : public Madar // ezt úgy is lehet/kell olvasni, hogy a pingvin tud repülni
+{};
+
+int main ( int argc, char **argv )
+{
+     Program program;
+     Madar madar;
+     program.fgv ( madar );
+
+     Sas sas;
+     program.fgv ( sas );
+
+     Pingvin pingvin;
+     program.fgv ( pingvin );
+
+}
+                     ]]></programlisting>
+
+
+
+
+                     <para>Ez a kódcsipet sérti a Liskov elvet Java nyelven.</para>
+
+
+                     <programlisting language="java"><![CDATA[
+
+                      public class liskov {
+
+
+
+
+  public static void main(String[] args) {
+
+
+    madar randomMadar = new madar();
+
+    randomMadar.repul();
+
+    sas randomSas = new sas();
+
+    randomSas.repul();
+
+    pingvin randomPingvin = new pingvin();
+
+    randomPingvin.repul();
+    
+  }
+
+
+
+
+
+}
+
+
+                     ]]></programlisting>
+
+                     <programlisting language="java"><![CDATA[
+
+public class madar {
+
+
+  public madar()
+  {
+
+  }
+
+  public void repul()
+  {
+    System.out.println("Rep-Rep");
+  }
+
+
+
+
+    
+  }
+
+
+
+                     ]]></programlisting>
+
+
+                     <programlisting language="java"><![CDATA[
+
+public class pingvin extends madar {
+
+
+  
+
+  public pingvin()
+  {
+
+  }
+
+
+
+
+
+}
+
+                     ]]></programlisting>
+
+
+                     <programlisting language="java"><![CDATA[
+
+public class sas extends madar{
+
+
+  public sas()
+  {
+    
+  }
+
+}
+
+                     ]]></programlisting>
+
+
+
+
+    </section>
+
+
+
+    <section>
+      
+      <title>Szülő-gyerek</title>
+
+      <para>Írjunk Szülő-gyerek Java és C++ osztálydefiníciót, amelyben demonstrálni tudjuk, hogy az ősön
+keresztül csak az ős üzenetei küldhetőek!
+https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (98. fólia)</para>
+
+
+                     <programlisting language="java"><![CDATA[
+public class szulo{
+
+
+  public szulo()
+  {
+
+  }
+
+  public void saySomething()
+  {
+    System.out.println("Something");
+  }
+
+
+}
+
+
+]]></programlisting>
+
+
+ <programlisting language="java"><![CDATA[
+
+public class gyerek extends szulo{
+
+
+  public gyerek()
+  {
+
+  }
+
+  public void saySomethingElse()
+  {
+    System.out.println("Something Else");
+  }
+
+
+}
+
+]]></programlisting>
+
+
+ <programlisting language="java"><![CDATA[
+
+public class szulo_gyerek{
+
+
+  public static void main(String[] args) {
+    
+
+    szulo parent = new szulo();
+
+    gyerek child = new gyerek();
+
+
+    child.saySomething();
+    child.saySomethingElse();
+
+    parent.saySomething();
+
+    
+
+      parent.saySomethingElse();
+    
+    
+
+    
+  }
+
+}
+
+]]></programlisting>
+
+
+<para>Látható, hogy a kódnak működnie kellene, de nem fog, mert a Szülő osztály nem tudja meghívni a Gyerek osztály saySomethingElse() függvényét.</para>
+
+
+    </section>
+
+<section>
+  <title>Anti OO</title>
+
+  <para>A BBP algoritmussal 4 a Pi hexadecimális kifejtésének a 0. pozíciótól számított 10 6, 107, 108 darab
+jegyét határozzuk meg C, C++, Java és C# nyelveken és vessük össze a futási időket!
+https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apas03.html#id561066</para>
+
+
+<para>C kód</para>
+
+
+ <programlisting language="c"><![CDATA[
+
+
+#include <stdio.h>
+#include <math.h>
+#include <time.h>
+
+int
+main()
+{
+
+
+
+
+
+    clock_t t; 
+    t = clock(); 
+     
+    
+  
+   
+
+
+
+
+  int asd = 0;
+  int id = 1000000;
+  while (asd < 3)
+  {
+
+  double pid, s1, s2, s3, s4;
+  double series (int m, int n);
+  void ihex (double x, int m, char c[]);
+  
+#define NHX 16
+  char chx[NHX];
+
+/*  id is the digit position.  Digits generated follow immediately after id. */
+
+  s1 = series (1, id);
+  s2 = series (4, id);
+  s3 = series (5, id);
+  s4 = series (6, id);
+  pid = 4. * s1 - 2. * s2 - s3 - s4;
+  pid = pid - (int) pid + 1.;
+  ihex (pid, NHX, chx);
+  printf (" position = %i\n fraction = %.15f \n hex digits =  %10.10s\n",
+  id, pid, chx);
+
+
+  t = clock() - t;
+  double time_taken = ((double)t)/CLOCKS_PER_SEC;
+   printf("Time: %f seconds \n\n", time_taken); 
+
+  id *= 10;
+  asd++;
+
+}
+
+
+
+}
+
+void ihex (double x, int nhx, char chx[])
+
+/*  This returns, in chx, the first nhx hex digits of the fraction of x. */
+
+{
+  int i;
+  double y;
+  char hx[] = "0123456789ABCDEF";
+
+  y = fabs (x);
+
+  for (i = 0; i < nhx; i++){
+    y = 16. * (y - floor (y));
+    chx[i] = hx[(int) y];
+  }
+}
+
+double series (int m, int id)
+
+/*  This routine evaluates the series  sum_k 16^(id-k)/(8*k+m) 
+    using the modular exponentiation technique. */
+
+{
+  int k;
+  double ak, eps, p, s, t;
+  double expm (double x, double y);
+#define eps 1e-17
+
+  s = 0.;
+
+/*  Sum the series up to id. */
+
+  for (k = 0; k < id; k++){
+    ak = 8 * k + m;
+    p = id - k;
+    t = expm (p, ak);
+    s = s + t / ak;
+    s = s - (int) s;
+  }
+
+/*  Compute a few terms where k >= id. */
+
+  for (k = id; k <= id + 100; k++){
+    ak = 8 * k + m;
+    t = pow (16., (double) (id - k)) / ak;
+    if (t < eps) break;
+    s = s + t;
+    s = s - (int) s;
+  }
+  return s;
+}
+
+double expm (double p, double ak)
+
+/*  expm = 16^p mod ak.  This routine uses the left-to-right binary 
+    exponentiation scheme. */
+
+{
+  int i, j;
+  double p1, pt, r;
+#define ntp 25
+  static double tp[ntp];
+  static int tp1 = 0;
+
+/*  If this is the first call to expm, fill the power of two table tp. */
+
+  if (tp1 == 0) {
+    tp1 = 1;
+    tp[0] = 1.;
+
+    for (i = 1; i < ntp; i++) tp[i] = 2. * tp[i-1];
+  }
+
+  if (ak == 1.) return 0.;
+
+/*  Find the greatest power of two less than or equal to p. */
+
+  for (i = 0; i < ntp; i++) if (tp[i] > p) break;
+
+  pt = tp[i-1];
+  p1 = p;
+  r = 1.;
+
+/*  Perform binary exponentiation algorithm modulo ak. */
+
+  for (j = 1; j <= i; j++){
+    if (p1 >= pt){
+      r = 16. * r;
+      r = r - (int) (r / ak) * ak;
+      p1 = p1 - pt;
+    }
+    pt = 0.5 * pt;
+    if (pt >= 1.){
+      r = r * r;
+      r = r - (int) (r / ak) * ak;
+    }
+  }
+
+  return r;
+}
+
+
+]]></programlisting>
+
+<para>és az outputja:</para>
+
+
+              <screen>
+position = 1000000
+ fraction = 0.423429797567895 
+ hex digits =  6C65E52CB4
+Time: 1.766114 seconds 
+
+ position = 10000000
+ fraction = 1.480308905010555 
+ hex digits =  7AF5863EFF
+Time: 20.892506 seconds 
+
+ position = 100000000
+ fraction = 0.383101156120682 
+ hex digits =  6212EAD899
+Time: 290.333717 seconds 
+
+              </screen>
+
+
+
+
+              <para>a C# kód apró módosítással, hogy egybe mérje le az időt</para>
+
+
+               <programlisting language="java"><![CDATA[
+            
+/*
+ * FileName: PiBBPBench.cs
+ * Author: Bátfai Norbert, nbatfai@inf.unideb.hu
+ * DIGIT 2005, Javat tanítok
+ */
+/// <summary>
+/// A PiBBPBench C# átírata.
+/// </summary>
+/// <remark>
+/// A PiBBP.java-ból kivettük az "objektumorientáltságot", így kaptuk
+/// a PiBBPBench osztályt, amit pedig átírtuk C# nyelvre.
+///
+/// (A PiBBP osztály a BBP (Bailey-Borwein-Plouffe) algoritmust a Pi hexa
+/// jegyeinek számolását végző osztály. A könnyebb olvahatóság
+/// kedvéért a változó és metódus neveket megpróbáltuk az algoritmust
+/// bemutató [BBP ALGORITMUS] David H. Bailey: The BBP Algorithm for Pi.
+/// cikk jelöléseihez.)
+/// </remark>
+public class PiBBPBench {
+    /// <remark>
+    /// BBP algoritmus a Pi-hez, a [BBP ALGORITMUS] David H. Bailey: The
+    /// BBP Algorithm for Pi. alapján a {16^d Sj} részlet kiszámítása.
+    /// </remark>
+    /// <param>
+    /// d   a d+1. hexa jegytől számoljuk a hexa jegyeket
+    /// </param>
+    /// <param>
+    /// j   Sj indexe
+    /// </param>
+    public static double d16Sj(int d, int j) {
+        
+        double d16Sj = 0.0d;
+        
+        for(int k=0; k<=d; ++k)
+            d16Sj += (double)n16modk(d-k, 8*k + j) / (double)(8*k + j);
+        
+        /*
+        for(int k=d+1; k<=2*d; ++k)
+            d16Sj += System.Math.pow(16.0d, d-k) / (double)(8*k + j);
+         */
+        
+        return d16Sj - System.Math.Floor(d16Sj);
+    }
+    /// <summary>
+    /// Bináris hatványozás mod k, a 16^n mod k kiszámítása.
+    /// </summary>
+    /// <param>
+    /// n   kitevő
+    /// </param>
+    /// <param>
+    /// k   modulus
+    /// </param>
+    public static long n16modk(int n, int k) {
+        
+        int t = 1;
+        while(t <= n)
+            t *= 2;
+        
+        long r = 1;
+        
+        while(true) {
+            
+            if(n >= t) {
+                r = (16*r) % k;
+                n = n - t;
+            }
+            
+            t = t/2;
+            
+            if(t < 1)
+                break;
+            
+            r = (r*r) % k;
+            
+        }
+        
+        return r;
+    }
+    /// <remark>
+    /// A [BBP ALGORITMUS] David H. Bailey: The
+    /// BBP Algorithm for Pi. alapján a
+    /// {16^d Pi} = {4*{16^d S1} - 2*{16^d S4} - {16^d S5} - {16^d S6}}
+    /// kiszámítása, a {} a törtrészt jelöli. A Pi hexa kifejtésében a
+    /// d+1. hexa jegytől
+    /// </remark>
+     public static void Main(System.String[]args) { 
+        
+        double d16Pi = 0.0d;
+        
+        double d16S1t = 0.0d;
+        double d16S4t = 0.0d;
+        double d16S5t = 0.0d;
+        double d16S6t = 0.0d;
+        
+        int jegy = 0;
+        
+        System.DateTime kezd = System.DateTime.Now;
+        
+        for(int d=1000000; d<1000001; ++d) {
+            
+            d16Pi = 0.0d;
+            
+            d16S1t = d16Sj(d, 1);
+            d16S4t = d16Sj(d, 4);
+            d16S5t = d16Sj(d, 5);
+            d16S6t = d16Sj(d, 6);
+            
+            d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+            
+            d16Pi = d16Pi - System.Math.Floor(d16Pi);
+            
+            jegy = (int)System.Math.Floor(16.0d*d16Pi);
+            
+        }
+        
+        System.Console.WriteLine(jegy);
+        System.TimeSpan delta = System.DateTime.Now.Subtract(kezd);
+        System.Console.WriteLine(delta.TotalMilliseconds/1000.0);
+
+
+        //********************************************************************************************
+
+        d16Pi = 0.0d;
+        
+        d16S1t = 0.0d;
+        d16S4t = 0.0d;
+        d16S5t = 0.0d;
+        d16S6t = 0.0d;
+        
+        jegy = 0;
+        
+        kezd = System.DateTime.Now;
+        
+        for(int d=10000000; d<10000001; ++d) {
+            
+            d16Pi = 0.0d;
+            
+            d16S1t = d16Sj(d, 1);
+            d16S4t = d16Sj(d, 4);
+            d16S5t = d16Sj(d, 5);
+            d16S6t = d16Sj(d, 6);
+            
+            d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+            
+            d16Pi = d16Pi - System.Math.Floor(d16Pi);
+            
+            jegy = (int)System.Math.Floor(16.0d*d16Pi);
+            
+        }
+        
+        System.Console.WriteLine(jegy);
+        delta = System.DateTime.Now.Subtract(kezd);
+        System.Console.WriteLine(delta.TotalMilliseconds/1000.0);
+
+
+
+
+
+
+
+
+        //********************************************************************************************
+        
+
+        d16Pi = 0.0d;
+        
+        d16S1t = 0.0d;
+        d16S4t = 0.0d;
+        d16S5t = 0.0d;
+        d16S6t = 0.0d;
+        
+        jegy = 0;
+        
+        kezd = System.DateTime.Now;
+        
+        for(int d=100000000; d<100000001; ++d) {
+            
+            d16Pi = 0.0d;
+            
+            d16S1t = d16Sj(d, 1);
+            d16S4t = d16Sj(d, 4);
+            d16S5t = d16Sj(d, 5);
+            d16S6t = d16Sj(d, 6);
+            
+            d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+            
+            d16Pi = d16Pi - System.Math.Floor(d16Pi);
+            
+            jegy = (int)System.Math.Floor(16.0d*d16Pi);
+            
+        }
+        
+        System.Console.WriteLine(jegy);
+        delta = System.DateTime.Now.Subtract(kezd);
+        System.Console.WriteLine(delta.TotalMilliseconds/1000.0);
+
+
+
+
+
+
+
+
+    }
+} 
+            
+                        
+
+
+
+              ]]></programlisting>
+
+
+              <para>És az outputja:</para>
+
+
+              <screen>
+6
+1.591696
+7
+19.796793
+12
+211.631173
+
+
+              </screen>
+
+
+              <para>A Java kód:</para>
+
+
+              <programlisting language="java"><![CDATA[
+/*
+ * PiBBPBench.java
+ *
+ * DIGIT 2005, Javat tanítok
+ * Bátfai Norbert, nbatfai@inf.unideb.hu
+ *
+ */
+/**
+ * A PiBBP.java-ból kivettük az "objektumorientáltságot", így kaptuk
+ * ezt az osztályt.
+ *
+ * (A PiBBP osztály a BBP (Bailey-Borwein-Plouffe) algoritmust a Pi hexa
+ * jegyeinek számolását végző osztály. A könnyebb olvahatóság
+ * kedvéért a változó és metódus neveket megpróbáltuk az algoritmust
+ * bemutató [BBP ALGORITMUS] David H. Bailey: The BBP Algorithm for Pi.
+ * cikk jelöléseihez.)
+ *
+ * @author Bátfai Norbert, nbatfai@inf.unideb.hu
+ * @version 0.0.1
+ */
+public class PiBBPBench {
+    /**
+     * BBP algoritmus a Pi-hez, a [BBP ALGORITMUS] David H. Bailey: The
+     * BBP Algorithm for Pi. alapján a {16^d Sj} részlet kiszámítása.
+     *
+     * @param   d   a d+1. hexa jegytől számoljuk a hexa jegyeket
+     * @param   j   Sj indexe
+     */
+    public static double d16Sj(int d, int j) {
+        
+        double d16Sj = 0.0d;
+        
+        for(int k=0; k<=d; ++k)
+            d16Sj += (double)n16modk(d-k, 8*k + j) / (double)(8*k + j);
+        
+        /* (bekapcsolva a sorozat elejen az első utáni jegyekben növeli pl.
+            a pontosságot.)
+        for(int k=d+1; k<=2*d; ++k)
+            d16Sj += Math.pow(16.0d, d-k) / (double)(8*k + j);
+         */
+        
+        return d16Sj - Math.floor(d16Sj);
+    }
+    /**
+     * Bináris hatványozás mod k, a 16^n mod k kiszámítása.
+     *
+     * @param   n   kitevő
+     * @param   k   modulus
+     */
+    public static long n16modk(int n, int k) {
+        
+        int t = 1;
+        while(t <= n)
+            t *= 2;
+        
+        long r = 1;
+        
+        while(true) {
+            
+            if(n >= t) {
+                r = (16*r) % k;
+                n = n - t;
+            }
+            
+            t = t/2;
+            
+            if(t < 1)
+                break;
+            
+            r = (r*r) % k;
+            
+        }
+        
+        return r;
+    }
+    /**
+     * A [BBP ALGORITMUS] David H. Bailey: The
+     * BBP Algorithm for Pi. alapján a
+     * {16^d Pi} = {4*{16^d S1} - 2*{16^d S4} - {16^d S5} - {16^d S6}}
+     * kiszámítása, a {} a törtrészt jelöli. A Pi hexa kifejtésében a
+     * d+1. hexa jegytől
+     */
+    public static void main(String args[]) {
+        
+        double d16Pi = 0.0d;
+        
+        double d16S1t = 0.0d;
+        double d16S4t = 0.0d;
+        double d16S5t = 0.0d;
+        double d16S6t = 0.0d;
+        
+        int jegy = 0;
+        
+        long delta = System.currentTimeMillis();
+        
+        for(int d=1000000; d<1000001; ++d) {
+            
+            d16Pi = 0.0d;
+            
+            d16S1t = d16Sj(d, 1);
+            d16S4t = d16Sj(d, 4);
+            d16S5t = d16Sj(d, 5);
+            d16S6t = d16Sj(d, 6);
+            
+            d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+            
+            d16Pi = d16Pi - Math.floor(d16Pi);
+            
+            jegy = (int)Math.floor(16.0d*d16Pi);
+            
+        }
+        
+        System.out.println(jegy);
+        delta = System.currentTimeMillis() - delta;
+        System.out.println(delta/1000.0);
+
+
+        //***********************************************************
+
+         d16Pi = 0.0d;
+        
+         d16S1t = 0.0d;
+         d16S4t = 0.0d;
+         d16S5t = 0.0d;
+         d16S6t = 0.0d;
+        
+         jegy = 0;
+        
+         delta = System.currentTimeMillis();
+        
+        for(int d=10000000; d<10000001; ++d) {
+            
+            d16Pi = 0.0d;
+            
+            d16S1t = d16Sj(d, 1);
+            d16S4t = d16Sj(d, 4);
+            d16S5t = d16Sj(d, 5);
+            d16S6t = d16Sj(d, 6);
+            
+            d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+            
+            d16Pi = d16Pi - Math.floor(d16Pi);
+            
+            jegy = (int)Math.floor(16.0d*d16Pi);
+            
+        }
+        
+        System.out.println(jegy);
+        delta = System.currentTimeMillis() - delta;
+        System.out.println(delta/1000.0);
+
+
+        //***********************************************************
+
+        d16Pi = 0.0d;
+        
+         d16S1t = 0.0d;
+         d16S4t = 0.0d;
+         d16S5t = 0.0d;
+         d16S6t = 0.0d;
+        
+         jegy = 0;
+        
+         delta = System.currentTimeMillis();
+        
+        for(int d=100000000; d<100000001; ++d) {
+            
+            d16Pi = 0.0d;
+            
+            d16S1t = d16Sj(d, 1);
+            d16S4t = d16Sj(d, 4);
+            d16S5t = d16Sj(d, 5);
+            d16S6t = d16Sj(d, 6);
+            
+            d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+            
+            d16Pi = d16Pi - Math.floor(d16Pi);
+            
+            jegy = (int)Math.floor(16.0d*d16Pi);
+            
+        }
+        
+        System.out.println(jegy);
+        delta = System.currentTimeMillis() - delta;
+        System.out.println(delta/1000.0);
+
+    }
+} 
+
+              ]]></programlisting>
+
+
+
+              <para>Output:</para>
+
+
+              <screen>
+                  6
+1.584
+7
+18.527
+12
+207.176
+
+              </screen>
+
+
+              <para>A C++ kód:</para>
+
+
+              <programlisting language="c++"><![CDATA[
+#include <math.h>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Bbp
+{
+    // Declaration
+    int     d;                          // Digits to compute
+    double  pi;                         // Pi
+    char    pi_hex[14];                 // Pi(Hex)
+    clock_t t0, t1;                     // Time
+    double  S(int);                     // Compute S
+    long    compModExp(int, int, int);  // Computer Modular Exponentiation
+    void    convHex(double, char[]);    // Convert Pi to Hex-string
+
+public:
+    Bbp(int);            // Constructor
+    void compPi();       // Compute PI
+};
+
+/*
+ * Constructor
+ */
+Bbp::Bbp(int d)
+{
+    cout << "**** PI Computation ( digit: " << d << " )" << endl;
+    this->d = d - 1;
+}
+
+/*
+ * Compute PI
+ */
+void Bbp::compPi()
+{
+    // Time (start)
+    t0 = clock();
+
+    // Compute Pi
+    pi = 4.0 * S(1) - 2.0 * S(4) - S(5) - S(6);
+    pi = pi - (int)pi + 1.0;
+    convHex(pi, pi_hex);
+    printf("FRACTION  : %.15f\n",   pi);
+    printf("HEX DIGITS: %10.10s\n", pi_hex);
+
+    // Time (end of computation)
+    t1 = clock();
+    
+}
+
+/*
+ * Compute S
+ */
+double Bbp::S(int j)
+{
+    double s = 0.0;        // Summation of Total, Left
+    double t;              // Each term of right summation
+    int    r;              // Denominator
+    int    k;              // Loop index
+    double EPS = 1.0e-17;  // Loop-exit accuration of the right summation
+
+    // Left Sum (0 ... d)
+    for (k = 0; k <= d; k++) {
+        r = 8 * k + j;
+        t = (double)compModExp(16, d - k, r);
+        t /= r;
+        s += t - (int)t;
+        s -= (int)s;
+    }
+
+    // Right sum (d + 1 ...)
+    while (1) {
+        r = 8 * k + j;
+        t = pow(16.0, (double)(d - k));
+        t /= (double)r;
+        if (t < EPS) break;
+        s += t;
+        s -= (int)s;
+        k ++;
+    }
+
+    return s;
+}
+
+/*
+ * Compute Modular Exponentiation
+ */
+long Bbp::compModExp(int b, int e, int m)
+{
+    long ans;
+
+    if (e == 0) return 1;
+
+    ans = compModExp(b, e / 2, m);
+    ans = (ans * ans) % m;
+    if ((e % 2) == 1) ans = (ans * b) % m;
+
+    return ans;
+}
+
+/*
+ * Convert Pi to Hex-strings
+ */
+void Bbp::convHex(double x, char chx[]) {
+    double y;
+    int i;
+    const char hx[] = "0123456789ABCDEF";
+
+    y = fabs(x);
+    for (i = 0; i < 16; i++) {
+        y = 16.0 * (y - floor(y));
+        chx[i] = hx[(int)(y)];
+    }
+}
+
+int main()
+{
+    try
+    {
+        clock_t t0, t1; 
+
+        t0 = clock();
+
+        Bbp objMain1(1000000);
+
+        objMain1.compPi();
+
+        t1 = clock();
+
+        cout << "( TIME: " << (double)(t1 - t0) / CLOCKS_PER_SEC
+         << " seconds )" << endl;
+
+
+                  cout<<endl;
+
+
+
+         t0 = clock();
+
+        Bbp objMain2(10000000);
+
+        objMain2.compPi();
+
+        t1 = clock();
+
+        cout << "( TIME: " << (double)(t1 - t0) / CLOCKS_PER_SEC
+         << " seconds )" << endl;
+
+
+         cout<<endl;
+
+
+
+         t0 = clock();
+
+        Bbp objMain3(100000000);
+
+        objMain3.compPi();
+
+        t1 = clock();
+
+        cout << "( TIME: " << (double)(t1 - t0) / CLOCKS_PER_SEC
+         << " seconds )" << endl;
+
+
+
+
+
+
+    }
+    catch (...) {
+        cout << "ERROR!" << endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+
+              ]]></programlisting>
+
+
+
+              <para>Output:</para>
+
+
+              <screen>
+**** PI Computation ( digit: 1000000 )
+FRACTION  : 1.151464362347900
+HEX DIGITS: 26C65E52CB
+( TIME: 1.96282 seconds )
+
+**** PI Computation ( digit: 10000000 )
+FRACTION  : 1.092519306564063
+HEX DIGITS: 17AF5863F0
+( TIME: 22.4879 seconds )
+
+**** PI Computation ( digit: 100000000 )
+FRACTION  : 1.924686484524649
+HEX DIGITS: ECB840E216
+( TIME: 257.553 seconds )
+
+              </screen>
+
+
+
+
+
+
+<para>Tehát a végeredmény a következő (másodpercben):</para>
+
+
+
+<para>6. hatványon:</para>
+
+<screen>
+C:    1.766114
+C++:  1.96282
+C#:   1.591696
+Java: 1.584
+ </screen>
+
+ <para>6. hatványon:</para>
+
+<screen>
+C:    20.892506
+C++:  22.4879
+C#:   19.796793
+Java: 18.527
+ </screen>
+
+ <para>6. hatványon:</para>
+
+<screen>
+C:    290.333717
+C++:  257.553
+C#:   211.631173
+Java: 207.176
+ </screen>
+
+
+ <para>Ebből is látszik, hogy ugyan a Javaról elterjedt hogy igencsak lassú, itt mégis gyorsabb az összes többi nyelvhez képest</para>
+              
+
+
+
+</section>
+
+
+
+
+<section>
+
+      <title>Ciklomatikus komplexitás</title>
+
+      <para>Számoljuk ki valamelyik programunk függvényeinek ciklomatikus komplexitását! Lásd a fogalom
+tekintetében a https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_2.pdf (77-79
+fóliát)!</para>
+
+
+
+
+<para><link xlink:href="http://www.lizard.ws">Ezen</link> a linken elérhető egy oldal, amin ki lehet számolni bármilyen forráskód ciklomatikus komplexitását.</para>
+
+<para>Én a saját kézzel írt C++ terminálos életjátékom ciklomatikus komplexitását mértem le az oldalon.</para>
+<para>Íme a kódja:</para>
+
+
+ <programlisting language="c++"><![CDATA[
+
+#include<iostream>
+#include<unistd.h>
+//#include<ncurses.h>
+
+class Cell
+{
+private:
+  bool populated;
+public:
+  Cell()
+  {
+    populated = false;
+  };
+  
+  bool getAlive(){return populated;};
+  void setAlive(bool alive){ populated = alive;};
+};
+
+
+
+class Map
+{
+  private: 
+    Cell *map[50][50];
+    bool stagnation;
+
+  public:
+    
+    Map()
+    {
+      for (int i = 0; i < 50; ++i)
+      {
+        for (int j = 0; j < 50; ++j)
+        {
+          map[i][j] = new Cell;
+        }
+      }
+
+      stagnation = false;
+    };
+    ~Map()
+    {
+      for (int i = 0; i < 50; ++i)
+      {
+        for (int j = 0; j < 50; ++j)
+        {
+          delete (getMap(i,j));
+        }
+      } 
+    };
+    Cell *getMap(int x, int y){return map[x][y];};
+    void setCell(int x, int y, bool alive);
+    void drawMap();
+    void NextCycle();
+    void fillDead();
+    void swap(Cell *map1[50][50], Cell* map2[50][50]);
+    bool checkMap();
+    void statistics();
+    int Population();
+    bool stagnate() { return stagnation;};
+    void stagnating() { stagnation = true;};
+    bool equals(Map m);
+
+};
+
+/*bool Map::equals(Map m)
+{
+  bool stag = false;
+
+  for (int i = 0; i < 50; ++i)
+  {
+    for (int j = 0; j< 50; ++j)
+    {
+      if (map[i][j]->getAlive() == m.getMap(i,j)->getAlive())
+      {
+        stag = true;
+      }
+    }
+  }
+
+  return stag;
+
+
+}*/
+
+int Map::Population()
+{
+
+  int population = 0;
+  for (int i = 0; i < 50; ++i)
+      {
+        for (int j = 0; j < 50; ++j)
+        {
+          if (map[i][j]->getAlive() == true)
+          {
+            ++population;
+          }
+        }
+      }
+return population;
+}
+
+
+
+void Map::swap(Cell *map1[50][50], Cell *map2[50][50])
+{
+      for (int i = 0; i < 50; ++i)
+      {
+        for (int j = 0; j < 50; ++j)
+        {
+          map1[i][j]->setAlive(map2[i][j]->getAlive());
+          map2[i][j] = NULL;
+          
+        }
+      }
+    }
+
+bool Map::checkMap()
+{
+  bool end = false;
+
+  for (int i = 0; i < 50; ++i)
+  {
+    for (int j = 0; j<50; ++j)
+    {
+      if (map[i][j] -> getAlive() == true)
+      {
+        end = true;
+      }
+    }
+  }
+  return end;
+}
+
+void Map::setCell(int x, int y, bool alive)
+{
+  map[x][y] -> setAlive(alive);
+};
+
+void Map::fillDead()
+{
+  for (int i = 0; i< 50; ++i)
+  {
+    for (int j =0; j<50; ++j)
+    {
+      map[i][j]->setAlive(false);
+    }
+  }
+};
+
+void Map::NextCycle()
+{
+  int counter = 0;
+  Map next;
+  for (int i = 0; i<50; ++i)
+  {
+    for (int j = 0; j< 50; j++)
+    { 
+          if ( i > 0)
+          {
+      if (  map[i-1][j]->getAlive() == true)
+      {
+        ++counter;        
+      }
+          }
+
+          if ( i < 49)
+          {
+      if ( map[i+1][j]->getAlive() == true )
+      {
+        ++counter;
+      }
+          }
+          if ( j > 0)
+          {
+      if ( map[i][j-1]->getAlive() == true )
+      {
+        ++counter;  
+      }
+          }
+          if ( j <49)
+          {
+      if ( map[i][j+1]->getAlive() == true )
+      {
+        ++counter;
+      }
+          }
+          if (j > 0 && i > 0)
+          {
+      if ( map[i-1][j-1]->getAlive() == true )
+      {
+        ++counter;        
+      }
+          }
+          if ( j < 49 && i < 49)
+          {
+      if (  map[i+1][j+1]->getAlive() == true)
+      {
+        ++counter;
+        
+      }
+          }
+
+          if ( j > 0 && i <49)
+          {
+      if ( map[i+1][j-1]->getAlive() == true)
+      {
+        ++counter;
+        
+      }
+          }
+          if ( j < 49 && i > 0)
+          {
+      if (  map[i-1][j+1]->getAlive() == true)
+      {
+        ++counter;
+      }
+          }
+      if (counter > 3 || counter < 2 )
+      {
+        next.map[i][j]->setAlive(false);
+  
+      }
+      if ( counter == 2 && map[i][j]->getAlive() == true)
+      {
+        next.map[i][j]->setAlive(true);
+      }
+      if (counter == 3 )
+      {
+        next.map[i][j]->setAlive(true); 
+      }
+      counter = 0;
+      }
+  }
+
+  /*if (this->equals(next))
+  {
+    this->stagnating();
+    next.stagnating();
+  }*/
+
+  swap(map,next.map);
+
+
+
+  next.~Map();
+};
+
+
+void Map::drawMap()
+{
+
+
+
+  for (int i = 0; i<50; ++i)
+  {
+    for (int j = 0; j< 50; ++j)
+    {
+      if (map[i][j]->getAlive() == false)
+      {
+        std::cout<<"\033[1;31mo\033[1;37m";
+      }
+      else 
+      {
+        std::cout<<"x";
+      }
+      std::cout<<" ";
+    }
+    std::cout<<std::endl;
+  }
+};
+
+
+int main()
+{
+
+
+
+  Map game;
+  game.fillDead();
+  int v1;
+  int v2;
+  
+
+  for (int i = 0; i<500; ++i)
+  {
+
+    v1 = rand() % 50;
+    v2 = rand() % 50;
+    game.setCell(v1, v2, true);
+  }
+
+
+/*
+
+  game.getMap(25,25)->setAlive(true);
+  game.getMap(26,25)->setAlive(true);
+  game.getMap(25,26)->setAlive(true);
+  game.getMap(26,26)->setAlive(true); // Still-life
+
+
+  game.getMap(15,15)->setAlive(true);
+  game.getMap(15,16)->setAlive(true);
+  game.getMap(15,17)->setAlive(true); // blinker
+
+*/
+
+
+  int pop = game.Population();
+  int iter = 0;
+  game.drawMap();
+
+  /*if (game.getMap(0,0)->getAlive() == true)
+  {
+    std::cout<<"True"<<std::endl;
+  }
+  else if (game.getMap(0,0)->getAlive() == false)
+  {
+    std::cout<<"False"<<std::endl;
+  }
+  */
+
+  /*std::cout<<"----------------"<< std::endl;
+  game.NextCycle();
+  game.drawMap();
+*/
+/*
+  int ch;
+  ch = getch();
+*/
+  while(game.checkMap())
+  {
+    std::system("clear");
+    ++iter;
+    std::cout << "Starting Population -> " << pop << std::endl;
+    std::cout << "Current Population -> " << game.Population()<< std::endl;
+    std::cout << "number of Iteration -> " << iter<< std::endl;
+    game.NextCycle();
+    game.drawMap();
+    usleep(200000);
+    std::cout<<"----------------------------------------------------------------------------------------------"<< std::endl;
+
+
+    /*if (ch = KEY_DOWN)
+    {
+      std::system("pause");
+    }
+    */
+      
+  }
+
+
+    game.drawMap();
+    std::cout<<"----------------------------------------------------------------------------------------"<< std::endl;
+    std::cout << "Starting Population -> " << pop << std::endl;
+    std::cout << "Current Population -> " << game.Population()<< std::endl;
+    std::cout << "number of Iteration -> " << iter<< std::endl;
+
+    return 0;
+}
+
+]]></programlisting>
+
+
+<para>Itt pedig az oldal által kiszámolt komplexitások láthatóak:</para>
+
+<figure>
+            <title>Életjáték, cikolmatikus komplexitás</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/ciklomatikus.png" scale="75" />
+                </imageobject>
+                
+            </mediaobject>
+        </figure> 
+
+    </section>
+
+    
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
