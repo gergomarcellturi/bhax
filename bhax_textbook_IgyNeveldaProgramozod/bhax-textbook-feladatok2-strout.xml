@@ -1,0 +1,206 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Stroustrup!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>JDK osztályok</title>
+
+        <para>
+            Írjunk olyan Boost C++ programot (indulj ki például a fénykardból) amely kilistázza a JDK összes
+osztályát (miután kicsomagoltuk az src.zip állományt, arra ráengedve)!
+        </para>
+
+        <para>Íme a kód:</para>
+
+        <programlisting language="c"><![CDATA[
+
+            #include <iostream>
+#include <string>
+#include <boost/filesystem.hpp>
+
+using namespace boost::filesystem;
+
+
+class Tourist
+{
+private:
+    unsigned int numOfClasses;
+public:
+    Tourist() : numOfClasses(0)
+    {
+        
+    }
+   
+    unsigned int getNumOfClasses()
+    {
+        return numOfClasses;
+    }
+    void listJDK(path thePath)
+    {
+        
+        
+       if (is_regular_file(thePath))
+        {
+                std::string ext (".java");
+                if (!ext.compare(extension(thePath)))
+                {
+                    std::cout << thePath << std::endl;
+                }
+                numOfClasses++;
+        }
+        else if(is_directory(thePath))
+                for (directory_entry& entry : directory_iterator(thePath))
+                {
+                        listJDK(entry.path());
+                }
+                
+    }
+};
+
+
+
+int main()
+{
+    Tourist theTourist;
+    std::cout << "Searching for Java classes\n";
+
+    theTourist.listJDK("src");
+
+    std::cout << "Found " << theTourist.getNumOfClasses() << " classes.\n";
+
+    return 0;
+
+
+}
+
+            ]]></programlisting>
+
+            <para>
+                Ez kilistázza az osztályokat, viszont kell hozzá a boost.
+            </para>
+        
+    </section>      
+
+
+     <section>
+        <title>Másoló-mozgató szemantika</title>
+
+        <para>
+            Kódcsipeteken (copy és move ctor és assign) keresztül vesd össze a C++11 másoló és a mozgató
+szemantikáját, a mozgató konstruktort alapozd a mozgató értékadásra!
+        </para>
+
+        <para>
+            Mozgató értékadás:
+        </para>
+        <programlisting language="c++"><![CDATA[
+            
+             LZWBinFa & operator= ( LZWBinFa && regi) 
+     {          
+       std::cout << "LZWBinFa mozgató értékadás" << std::endl;
+       std::swap (gyoker, regi.gyoker); 
+        
+       return *this;
+            
+    }
+        
+        ]]></programlisting> 
+        
+        <para>
+            Megcseréli a két pointer (vagyis ahová mutatnak). Mivel ez a mozgató konstruktorból fog meghívódni, így az egyik pointer nullpointer lesz,
+            így technikailag az egyik objektum elveszíti az elemeit.
+        </para>
+        
+        <para>
+            Mozgató konstruktor:
+        </para>
+        
+         <programlisting language="c++"><![CDATA[
+            
+           LZWBinFa ( LZWBinFa && regi ) {
+          std::cout << "LZWBinFa mozgató konstruktor" << std::endl;
+          
+          gyoker = nullptr;
+          *this = std::move (regi);
+
+     }
+        ]]></programlisting> 
+        <para>
+            Létrehoz egy új objektumot, melynek a gyoker mutatója null-ra fog mutatni, majd megcseréli egy, már létező objektummal, azzal hogy meghívja a mozgató értékadást.
+        </para>
+        
+        <para>
+            A mozgató szemantika átmásolja egy új objektumba az eredeti objektum elemeit, majd (miközben) kitörli az összeset az eredetiből.
+        </para>
+
+
+        <para>A másoló szemantika pedig átmásolja az objektumot</para>
+        <programlisting language="c++"><![CDATA[
+            
+          LZWBinFa ( const LZWBinFa & regi ) {
+          std::cout << "LZWBinFa másoló konstruktor" << std::endl;
+
+          gyoker = masol(regi.gyoker,regi.fa);
+     }
+
+}
+
+Csomopont *  masol ( Csomopont * elem, Csomopont * regifa ) {
+
+          Csomopont * ujelem = NULL;
+
+          if ( elem != NULL ) {
+               ujelem = new Csomopont ( elem->getBetu() );
+
+               ujelem->ujEgyesGyermek ( masol ( elem->egyesGyermek (), regifa ) );
+               ujelem->ujNullasGyermek ( masol ( elem->nullasGyermek (), regifa ) );
+
+               if ( regifa == elem )
+                    fa = ujelem;
+
+          }
+
+          return ujelem;
+     }
+        ]]></programlisting> 
+
+
+
+
+    </section>
+
+    <section>
+        <title>Összefoglaló</title>
+
+        <para>Az előző 4 feladat egyikéről írj egy 1 oldalas bemutató „”esszé szöveget!</para>
+
+        <para>A másoló és Mozgató szemantika összevetését választanám ebben a feladatban.</para>
+
+        <para>Bár számtalan magas szintű programozási nyelvben mára már szinte elő sem fordulnak azok a kifejezések, hogy másoló vagy mozgató szemantika, C++-ban teljesen természetesnek vehetőek.</para>
+
+        <para>Ugyan a C++ magas szintű programozási nyelvnek vehető, mégsem sorolható egy kategóriába a Java-val vagy akár a Pythonnal.</para>
+
+        <para>A C++-ban az objektumokhoz külön kell írni másoló és mozgató szemantikát, ugyanis alapvetően egy egyenlőséggel nem lehet megoldani.</para>
+
+        <para>Én példakódnak a jó öreg és közkedvelt LZWBinfa kódját választottam, elvégre C++-ban volt írva, és gerincoszlopát képezik a másoló és mozgató konstruktorok.</para>
+
+        <para>Láthatjuk a kódban, hogy külön függvényeket is kellett írni ahhoz, hogy a másolások végbemenjenek, ebből is látszik, hogy ha C++-ban ír az ember, az adattípúsok legprimitívebb formájáig le kell ereszkedni ahhoz, hogy minden jól működjön.</para>
+
+        <para>Memórialeak-ek elkerülése végett külön oda kell figyelni ezekre a szemantikákra, hiszen ha nem figyelünk, könnyen elfolyhat a memória.</para>
+
+        <para>Míg a Javaban minden referencia, a c++-ban nem, így kicsit talán szofisztikáltabban kell kezelni a rendszert illetve a nyelvet.</para>
+
+        <para>Mivel szinte minden apróságot mi írunk meg, kicsit kihívobb lehet c++-ban programozni.</para>
+
+        <para>Viszont a C++ nyelvezete széleskörben "szépnek" tartott, pont emiatt.</para>
+
+    </section>
+
+
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

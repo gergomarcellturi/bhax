@@ -470,7 +470,74 @@ public class LZWBinFa {
 
           ]]></programlisting> 
         
-    </section>        
+    </section>     
+
+    <section>
+
+      <title>Gagyi</title>
+
+      <para>Végbemegy</para>
+           <programlisting language="java"><![CDATA[
+public class gagyi2{
+
+
+  public static void main(String[] args)
+  {
+
+  Integer x = -128;
+  Integer t = -128;
+
+  System.out.println(x);
+  System.out.println(t);
+
+  while (x <= t && x >= t && t != x );
+
+
+
+  }
+
+}
+
+
+
+                      ]]></programlisting> 
+
+
+
+
+      <para>Végtelen ciklus</para>
+
+
+        <programlisting language="java"><![CDATA[
+public class gagyi2{
+
+
+  public static void main(String[] args)
+  {
+
+  Integer x = -129;
+  Integer t = -129;
+
+  System.out.println(x);
+  System.out.println(t);
+
+  while (x <= t && x >= t && t != x );
+
+
+
+  }
+
+}
+
+
+
+                      ]]></programlisting> 
+
+
+
+    </section>
+
+
         
 			<section>
         <title>Yoda</title>
