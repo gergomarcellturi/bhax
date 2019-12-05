@@ -1,0 +1,90 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Lauda</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+
+
+
+    <section>
+        <title>Port scan</title>
+
+        <para>Mutassunk rá ebben a port szkennelő forrásban a kivételkezelés szerepére!
+https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch01.html#id527287</para>
+
+<para>Port scan, kivételkezelés, példaprogram:</para>
+
+<programlisting language="c"><![CDATA[%{
+
+    for ( int i = 0; i<0; i++) {
+    try {
+    java.net.Socket socket = new java.net.Socket(args[0], i );
+    System.out.println(i + "End my Misery");
+    socket.close();
+    } catch ( Exception e ) {
+    System.out.println(i + "Onegai!!!");
+    }
+    }
+
+            ]]></programlisting>
+
+            <para>Ez a program lescanneli 0-1024-ig a TCP-kapukat, vizsgálva hogy melyik van használva és melyik nem.</para>
+            <para>Ha a portszámra stílusosan 'End my Misery'-t kapunk, akkor tudjuk, hogy az a port éppen használatban van, ha pedig mégstílusosabban 'Onegai!!!'-t, akkor mivel nem jön létre a socket, tudjuk, hogy azt a portot nem figyelik.</para>
+
+    </section>        
+
+
+
+
+
+    <section>
+        <title>AOP</title>
+        <para>Szőj bele egy átszövő vonatkozást az első védési programod Java átiratába! (Sztenderd védési
+feladat volt korábban.)</para>
+
+        <para>AOP, azaz Aspect Oriented Programming, a programok modularitására teszi a hangsúlyt. Ez olyan lehetőségeket ad, hogy anélkül lehessen új feature-öket hozzáadni a programhoz, hogy mélyen bele kellene-e nyúlni a forráskódjába. </para>
+
+        <para>Egy jó példa erre, az LZWBinfa különböző bejárásai. Inorder, Postorder, Preorder, mindet meg lehet írni külön, később pedig csak meg kell hívni a függvényeket, nem kell különösképpen matatni a forráskódban.</para>
+    </section>        
+        
+
+
+
+        <section>
+            <title>Junit teszt</title>
+            <para>A https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_fel_egy_pedat
+poszt kézzel számított mélységét és szórását dolgozd be egy Junit tesztbe (sztenderd védési feladat
+volt korábban).</para>
+
+<programlisting language="c"><![CDATA[%{
+    public class LZWBinFaTest {
+    LZWBinfa binfa = new LZWBinfa();
+
+    @Test
+    public void tesuto() {
+    char[] pattern = "01111001001001000111".toCharArray();
+
+    for ( char letter: pattern ) {
+    binfa.hozzarendel(letter);
+    }
+
+    assertEquals(4, binfa.getMelyseg());
+    assertEquals(2.75, binfa.getAtlag(), 0.01);
+    assertEquals(0.957427, binfa.getSzoras(), 0.000001);
+    }
+    }
+            ]]></programlisting>
+
+            <para>
+                A Junit tesztet azza használják, hogy a fejlesztőknek több módjuk legyen debuggolni a programot, így legalább megtudni azt, hogy melyik class-ban, vagy függvényben van a hiba is rengeteg segítség tud lenni. Ez a példakód teszteli a bemenetet, megnézve, hogy az értékek amiket kapunk, mennyire egyeznek meg, a megadott mintával ('pattern').
+            </para>
+
+        </section>
+
+
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
