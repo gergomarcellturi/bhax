@@ -1,0 +1,77 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, !</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+      
+     <title>FUTURE tevékenység editor</title>
+
+       <para>
+       	Javítsunk valamit a ActivityEditor.java JavaFX programon!
+https://github.com/nbatfai/future/tree/master/cs/F6
+Itt láthatjuk működésben az alapot: https://www.twitch.tv/videos/222879467
+       </para>
+
+       <para>
+           Ezen program célja, hogy könnyedén nyomon lehessen követni a progresszióinkat, amiket aztán később máshogy felhasználhatunk még. Hasznos elgondolás, főleg olyan projekteknél, amik több embert is magukban foglalnak, hisz így egyszerűbb nyomon követni, ki hogy halad a feladataival. Maga a program ettől függetlenül nem glitch-mentes, és bár az is hagyhat kívánni valót maga után, hogy ezen feladatok teljesítésének bejelentése 'Honor' alapú, én egy kisebb módosítást eszközöltem rajta: </para>
+
+        <programlisting language="c"><![CDATA[%{
+  
+  if (evt.getButton() == MouseButton.PRIMARY){
+    return;
+  } 
+            ]]></programlisting>
+
+            <para>Ez az apró kódcsipet azt a problémát oldja meg (nem teljesen), hogy egyes esetekben nem tudja a program eldönteni, hogy kattintáskor mappába szeretnénk-e belépni, vagy tevékenységet kívánunk kijelölni.</para>
+       
+    </section>    
+
+
+    <section>
+    	<title>SamuCam</title>
+
+    	<para>Mutassunk rá a webcam (pl. Androidos mobilod) kezelésére ebben a projektben:
+https://github.com/nbatfai/SamuCam</para>
+
+<para>Magáról a programról keveset tudnék beszélni, hiszen egyrészt nem ismerem a pontos céljait, és egyébként nem is szerepel a bakancslistámban a megismerése.</para>
+
+<para>Viszont a kamerakezelésről tudok írni</para>
+
+<programlisting language="c"><![CDATA[%{
+  
+SamuCam::SamuCam ( std::string videoStream, int width = 176, int height = 144 ) :videoStream ( videoStream ), width (width), height(height)
+{
+    openVideoStream();
+}
+            ]]></programlisting>
+
+            <para>Mit érdemes tudni erről a kis kódocskáról?</para>
+
+            <para>Ez a SamuCam construktora, itt állítja be a magasságot és a szélességet, illetve ez indítja el magát a felvételt is.</para>
+
+    </section>
+
+    <section>
+    	<title>BrainB</title>
+
+    	<para>Mutassuk be a Qt slot-signal mechanizmust ebben a projektben: https://github.com/nbatfai/esport-
+talent-search</para>
+
+<programlisting language="c"><![CDATA[%{
+
+connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) this, SLOT (updateHeroes( QImage, int, int )));
+
+connect ( brainBThread, SIGNAL ( endAndStats ( int ) ) this, SLOT (endAndStats( int )));
+
+            ]]></programlisting>
+
+            <para> Itt megfigyelhető a Qt slot-signal mechanizmusa. A lényege, hogy a heroesChanged argumentumaival fog lefutni az updateHeroes függvény, a második sorban pedig saját magának küld jelet.</para>
+
+    </section>
+
+
+</chapter>
