@@ -53,6 +53,10 @@ SamuCam::SamuCam ( std::string videoStream, int width = 176, int height = 144 ) 
 
             <para>Ez a SamuCam construktora, itt állítja be a magasságot és a szélességet, illetve ez indítja el magát a felvételt is.</para>
 
+            <para>Igazából innen indul ki az egész felvétel, és bár látható, hogy megadott értékekkel dolgozik, tehát nem dinamikus, ettől függetlenül elengedhetetlen szerepet tölt be a programban.</para>
+
+            <para>Arra hogy miért megadott méretekkel rendelkezik sok magyarázat adható. Egy ilyen program esetében fontos, hogy takarékosan bánjunk az erőforrásainkkal, lehetséges hogy emiatt lett megollózva.</para>
+
     </section>
 
     <section>
@@ -70,6 +74,8 @@ connect ( brainBThread, SIGNAL ( endAndStats ( int ) ) this, SLOT (endAndStats( 
             ]]></programlisting>
 
             <para> Itt megfigyelhető a Qt slot-signal mechanizmusa. A lényege, hogy a heroesChanged argumentumaival fog lefutni az updateHeroes függvény, a második sorban pedig saját magának küld jelet.</para>
+
+            <para>Mint már említettem, ez a Qt-ban szereplő feature egyedi, így valószínűleg nem sok más helyen találkozhat vele az ember. Ettől függetlenül egy igen hasznos funkció</para>
 
     </section>
 

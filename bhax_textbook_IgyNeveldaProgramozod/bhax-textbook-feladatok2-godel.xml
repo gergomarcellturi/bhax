@@ -85,7 +85,7 @@ CustomAlloc-os példa, lásd C forrást az UDPROG repóban!
         ]]></programlisting>   
 
         <para>
-            Tehát a függvény megkap egy argumentumot, melyet rendez, és visszaadja.
+            Tehát a függvény megkap egy argumentumot, melyet rendez, és visszaadja a rendezés után. Egy elég egyértelmű kódcsipet, ami ettől függetlenül széleskörben használt, illetve igen fontos szerepet tölt be olyan nagy adatmennyiségek szortírozásában, mint ami a feladatban szerepel, így a jól megírásuk követelmény ahhoz, hogy elfogadhatóan fusson a program.
         </para>
 
 

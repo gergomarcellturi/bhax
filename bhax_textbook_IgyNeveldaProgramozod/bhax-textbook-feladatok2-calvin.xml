@@ -16,6 +16,10 @@
 
         <para>Feltelepítettem és kipróbáltam</para>
 
+        <para>Androidos telefonok esetében elég egyszerű a beszerzése, hiszen a Store-ban ingyenesel letölhető. Object Detector and Classifier - TensorFlow néven lehet megtalálni</para>
+
+        <para>Nem androidos telefonok esetében az android studio nevű programot tudom ajánlani, amivel hasonló egyszerűséggel lehet kipróbálni</para>
+
 
         <figure>
             <title>Kép1</title>
@@ -36,6 +40,8 @@
                 
             </mediaobject>
         </figure> 
+
+        <para>látható hogy azért távol áll még a tökéletességtől. Látván hogy a Super-Gamer-Desk-emet Dinnertable-be kategorziálta, mindig lyukat ejt a szívemen, de egy olyan technológiáról beszélünk, ami még gyerekcipőkben jár. Ilyenkor mindig azt tudom csak mondani, hogy ha az informatika is kap annyi időt mint a matematika, akkor megnézhetjük hogy egész pontosan milyen dinnertable is az a gamer-desk</para>
     
 
     </section>        
@@ -226,6 +232,10 @@ if __name__ == '__main__':
             <para>A https://github.com/Microsoft/malmo felhasználásával egy ágens példa, lásd pl.:
 https://youtu.be/bAPSu3Rndi8, https://bhaxor.blog.hu/2018/11/29/eddig_csaltunk_de_innentol_mi,
 https://bhaxor.blog.hu/2018/10/28/minecraft_steve_szemuvege</para>
+
+<para>Lefuttatása egész egyszerű, minden benne van a README.md fájlban, az alapján indítottam el én is.</para>
+
+<para>Ami esetleg említésre méltó ebben az esetben, hogy Java 8-al fut le csak a program, így azt mindenképpen át kell állítani futtatás során, illetve nagyon érzékeny arra, hogy melyik directoryból adunk ki milyen parancsokat, ami fejfájást okozhat egyeseknek. Ezektől eltekintve egyszerű a futtatása és elég önmagyarázó.</para>
 
         <figure>
             <title>Malmo 1</title>
