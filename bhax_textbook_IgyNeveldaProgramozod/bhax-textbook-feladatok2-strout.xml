@@ -82,6 +82,8 @@ int main()
             <para>
                 Ez kilistázza az osztályokat, viszont kell hozzá a boost.
             </para>
+
+            <para>Láthatjuk, ahogy amint talál egy .java kiterjesztésű fájlt a megadott útvonalon, akkor az egyből bekerül a listába, az útvonallal együtt.</para>
         
     </section>      
 

@@ -16,6 +16,14 @@ az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.!
 https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf (16-22 fólia)
 Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polargen)
         </para>
+
+        <para>
+          Java-ban a polártranszformációs művelet, már a függvény része, így ahhoz nem kell semmi extrát hozztenni, mindössze megírni hozzá.
+        </para>
+
+        <para>
+          c++ esetében viszont több include-ot is meg kell ejteni, amivel biztosítani tudjok a kellő eszközöket, amiknek a rendelkezésünkre kell hogy álljanak ahhoz hogy működjön a program.
+        </para>
         
         <para>RandomNum Java class</para>
         
@@ -74,6 +82,10 @@ public class prog2 {
 }
 
                     ]]></programlisting>  
+
+                    <para>lefuttatva a kódot láthatjuk majd, hogy úgy működik a program, ahogy annak működnie kell.</para>
+
+                    <para>c++-ban láthatjuk hogy 4 include-dal kell kezdenünk.</para>
 
                     <para>c++ kód</para>
 
@@ -168,6 +180,8 @@ attribútum pointer, referencia vagy tagként tartalmazott legyen).
 Miután már áttettük Java nyelvre, tegyük be egy Java Servletbe és a böngészőből GET-es kéréssel
 (például a böngésző címsorából) kapja meg azt a mintát, amelynek kiszámolja az LZW binfáját!
         </para>
+
+        <para>A következő kódrészletek a java-ba átírt c++-os LZW binfa programunkat reprezentálja. Mivel a két nyelv egyébként igen hasonló, mind szintaxisban, mind pedig feature-ökben, ezért észrevehetjük, hogy a két kód között minimális eltérés van. ( ugye nincsnek a java-ban pointerek, referenciák, ami viszont véleményem szerint nem is egy hátrány)</para>
 
         <para>Csomopont class</para>
 
@@ -502,9 +516,6 @@ public class gagyi2{
 
                       ]]></programlisting> 
 
-
-
-
       <para>Végtelen ciklus</para>
 
 
@@ -532,6 +543,14 @@ public class gagyi2{
 
 
                       ]]></programlisting> 
+
+                      <para>Hogy lehet hogy az egyik kód végbemegy, a másik nem? Látszólag semmi különbség nincs a két kódcsipet között, a két Integer objektum értékét kivéve természetesen. Nos, az Integer osztály miatt történik mindez. Ez azért történik, mert Java-ban az Integer osztály esetében, cache-eli az értékeket -128-tól 127-ig. Ezt a gyorsabb lefutás, és optimalizáltság érdekében teszi.</para>
+
+                      <para>Említettem, hogy az Integer egy objektum, illetve tudjuk hogy a Java referenciákkal dolgozik, s ebből a két információból már valószínűnek tartom, hogy egyértelmű a válasz az érdekes jelenségre.</para>
+
+                      <para>Amikor összehasonlítjuk a két változót a while ciklusban, akkor valójában nem a két objektum int típusú értékét hasonlítjuk össze, hanem a két objektumot magát (referenciáját), ami valójában csak egy objektum, két referenciaváltozóval. Tehát amíg az Integer -128 és 127 között mozog, az azonos értékű változókhoz egy objektum társul, s minden, az intervallumon kívülre eső változóhoz új objektum kreálódik.</para>
+
+                      <para>Ennélfogva, amíg az intervallumon belül hasonlítjuk össze, végbemegy a ciklus, pontosabban bele se lépünk a ciklusban, hiszen csak a t!=x van értelmezve, ami természetesen nem igaz, hisz a két változó ugyanarra az objektumra mutat. A másik esetben pedig a t!=x mindig igaz lesz, mivel két objektumot hasonlít össze, más memóriacímeken.</para>
 
 
 
@@ -580,6 +599,8 @@ public class yoda{
 }
 
                     ]]></programlisting>  
+
+                    <para>láthatjuk, hogy ha egy String objektumnak null értéket adunk, akkor nem lehet összehasonlítani egy karakterlánccal, ezt az első if statement-ben láthatjuk. Pontosabban láthatjuk, hogy nem fog hibát kiadni, mivel először a karakterláncot "keresi meg" /"ragadja meg", s azután hasonlít, viszont a második esetben láthatjuk, hogy ha a null értéket próbáljuk "megragadni", akkor hamar hibába fogunk esni.</para>
 
 
 
@@ -645,6 +666,8 @@ public class Pi {
 }
 
                     ]]></programlisting>  
+
+                    <para>Ez az program a BBP algoritmuson alapul, amivel a Pi megközelítő értékét lehet kiszámolni. Természetesen magát a Pi-t nem lehet, mivel az csak egy 'végtelenesített' algoritmussal lehetne, végtelen erőforrás pedig nem létezik az informatikában, sőt, a világban sem. Az algoritmus a Pi számjegyeit számolja, a feladatban a kihívás pedig inkább az jelenti, hogy hosszú, sok számjegyből álló számokat tudjunk kezelni. Ebben az esetben a Java-ban van egy külön class, a BigDecimal, ami pontosan a hasonló esetekre lett megteremtve. Ezzel az osztállyal, és a hozzátartozó metódusokkal és függvényekkel pedig mindössze le kell gépelni a BBP algoritmust.</para>
    
             </section>    
 

@@ -20,6 +20,8 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
           A kérdéses program gond nélkül lefutott, miután a forrásfájljait UTF8-ban mentettem el
         </para>
 
+        <para>Úgy gondolom elavult dolog ékezetekkel programozni, de természetesen ez pár éve még nem biztos hogy így volt. Számomra új dolog volt ilyet látni, és látszólag a fordítóprogramnak is. A fő gondolat persze még mindig csupán annyi, hogy ha UTF8-as karakterkódolásban mentjük el, akkor le kell fordulnia</para>
+
         <figure>
             <title>Nagyító</title>
             <mediaobject>
@@ -258,6 +260,8 @@ public class fullscreen extends javax.swing.JFrame {
 ]]></programlisting>
 
 <para>Különösképpen nem csinál semmit, viszont a feladatnak eleget tesz, hiszen ez egy teljesképernyős program, még akkor is, ha csak egy szürke ablak.</para>
+
+<para>Meghatározza a képernyő méreteit, majd kiterjeszti a megjelenő ablak méreteit rá. Funkcionálitást nem adtam neki, hiszen nem az volt a feladat.</para>
       </section>
 
         

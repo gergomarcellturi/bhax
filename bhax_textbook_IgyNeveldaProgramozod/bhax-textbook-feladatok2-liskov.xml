@@ -206,6 +206,8 @@ public class sas extends madar{
                      ]]></programlisting>
 
 
+<para>Ebből mit lehet levonni tanúlságnak? Ami lehetséges a virtuális világban az nem feltétlenül lehetséges a valóságban... Ezen felül rámutat az előretervezés fontosságára, és arra hogy vigyázni kell az inharitance-kre, osztályok esetében.</para>
+
 
 
     </section>
@@ -296,7 +298,7 @@ public class szulo_gyerek{
 
 
 <para>Látható, hogy a kódnak működnie kellene, de nem fog, mert a Szülő osztály nem tudja meghívni a Gyerek osztály saySomethingElse() függvényét.</para>
-
+<para>Viszont a gyerek osztály meg tudja hívni a szülő függvényeit.</para>
 
     </section>
 
@@ -728,7 +730,7 @@ public class PiBBPBench {
 1.591696
 7
 19.796793
-12
+8
 211.631173
 
 
@@ -936,11 +938,11 @@ public class PiBBPBench {
 
 
               <screen>
-                  6
+6
 1.584
 7
 18.527
-12
+8
 207.176
 
               </screen>
@@ -1173,7 +1175,7 @@ C#:   1.591696
 Java: 1.584
  </screen>
 
- <para>6. hatványon:</para>
+ <para>7. hatványon:</para>
 
 <screen>
 C:    20.892506
@@ -1182,7 +1184,7 @@ C#:   19.796793
 Java: 18.527
  </screen>
 
- <para>6. hatványon:</para>
+ <para>8. hatványon:</para>
 
 <screen>
 C:    290.333717
@@ -1193,6 +1195,7 @@ Java: 207.176
 
 
  <para>Ebből is látszik, hogy ugyan a Javaról elterjedt hogy igencsak lassú, itt mégis gyorsabb az összes többi nyelvhez képest</para>
+ <para>Ez azért van, mert az alacsonyabb szintű programozási nyelvek is csak akkor gyorsabbak, ha jól vannak megírva.</para>
               
 
 
@@ -1586,6 +1589,8 @@ int main()
 
 
 <para>Itt pedig az oldal által kiszámolt komplexitások láthatóak:</para>
+
+<para>Úgy vélem, hogy sehol sem szerepelnek kiugró értékek, ami a kód egyszerűségét tükrözheti.</para>
 
 <figure>
             <title>Életjáték, cikolmatikus komplexitás</title>
