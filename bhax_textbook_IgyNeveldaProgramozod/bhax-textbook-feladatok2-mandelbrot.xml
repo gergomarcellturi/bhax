@@ -14,6 +14,10 @@
             kapcsolatára a forráskódban és a diagramon, lásd még: https://youtu.be/Td_nlERlEOs.
         </para>
 
+        <para>UML diagrammok tökéletesek arra, hogy átláhatóvá tegyük nagyobb projektjeinket, sőt, mindenhol követelmények már. Természetesen egy jó programozó nem kezd el kézzel rajzolgatni, hanem legenerálja azt, egy már meglévő kódból. Erre pedig számtalan hasznos szoftver van, illetve számtalan szoftverbe be van építve mint feature.</para>
+
+        <para>Én az első LZWBinfás kódot választottam mint forrást, hisz azt már mindenki jól ismeri, így egyből látható lesz az uml diagrammon, ha valami nincs helyén.</para>
+
         <para>Íme a kód, amiből generáltuk az UML-t:</para>
 
 
@@ -690,23 +694,6 @@ main (int argc, char *argv[])
 
   }
 }
-
-    © 2019 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Help
-
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-
-
             ]]></programlisting>  
 
 
@@ -722,6 +709,8 @@ main (int argc, char *argv[])
             </mediaobject>
         </figure> 
 
+        <para>Láthatjuk, hogy elég pontosan generálta le a diagrammot, kevesebb mint egy másodperc alatt. Innen is látszik, mennyivel fontosabb először felmérni a lehetőségeinket, és csak utána fejest ugrani a munkába, hisz így órákat lehet megtakarítani</para>
+
     </section>
 
 
@@ -732,6 +721,10 @@ main (int argc, char *argv[])
         <para>
             Forward engineering UML osztálydiagram
         </para>
+
+        <para>Hasonló a helyzet mint az előző feladatnál, most viszont már a kész UML diagramból akarunk kódot generálni. Nos egyértelmű lehet, hogy a kód maga nem fogja tartalmazni azt a funkcionalitást, mint amit elvárnánk tőle, de ez egy remek eszköz arra, hogy megalapozzunk egy projektmunkát, illetve elkezdjük építeni a programot. Sok esetben először egy UML diagram jön létre egy projekt születésekor, hogy átlátható és egyértelmű legyen minden lépés a fejlesztőcsapatnak.</para>
+
+        <para>Szerencsénkre, ahogy az előző feladatban is, itt is számtalan eszköz áll a rendelkezésünkre, hiszen a legtöbb szoftverben szerepel ez a funkció is.</para>
 
         <para>Íme az UML, amiből forrást generáltunk:</para>
 
@@ -1039,6 +1032,8 @@ public class LZWBinFa {
             ]]></programlisting>  
 
 
+            <para>Látható, hogy hiányos a kód ugyan, de a csontváza kész, ezzel is egyszerűbbé és átláthatóbbá téve a fejlesztő munkáját.</para>
+
     </section>
 
 <section>
@@ -1047,6 +1042,12 @@ public class LZWBinFa {
             Rajzoljunk le egy tevékenységet BPMN-ben!
 https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_7.pdf (34-47 fólia)
         </para>
+
+        <para>Ugyncsak hasznos nagyobb projektekhez, hiszen így nyomon lehet követni a folyamat előrehaladását, és egyértelművé válhat mindenkinek mi miután következik. Ezen felül a tevékenység-koordinálásokhoz is rengeteget hozzáad automatizálás terén.</para>
+
+        <para>Nem vittem túlzásba a kreálását, de egyébként is annyi volt a célom ezzel, hogy átadhassam a fő gondolatát a feladatnak.</para>
+
+        <para>Egy említést szeretnék tenni a Flowgorythm nevű programnak, ami ilyen elgondoláson alapúl. Véleményem szerint egy remek belépő és segédeszköt azoknak, akik újak még az algoritmikus gondolkozás területén</para>
 
         <figure>
             <title>BPMN</title>
